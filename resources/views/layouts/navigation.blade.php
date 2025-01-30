@@ -37,6 +37,11 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
+                            @if(Auth::user()->is_admin==1)
+                                <x-dropdown-link :href="route('admin.index')">
+                                    {{ __('Admin Dashboard') }}
+                                </x-dropdown-link>
+                            @endif
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -74,9 +79,6 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
-                {{ __('Shops') }}
-            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

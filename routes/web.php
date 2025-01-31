@@ -2,18 +2,28 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShopOwnerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/shops', function () {
-    return view('shops.index');
-})->name('shops.index');
+Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
+//Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
+//Route::post('/shops', [ShopController::class, 'store'])->name('shops.store');
+Route::get('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show');
+//Route::get('/shops/{shop}/edit', [ShopController::class, 'edit'])->name('shops.edit');
+//Route::patch('/shops/{shop}', [ShopController::class, 'update'])->name('shops.update');
+//Route::delete('/shops/{shop}', [ShopController::class, 'destroy'])->name('shops.destroy');
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
+    Route::get('/shop_dashboard', [ShopOwnerController::class, 'index'])->name('shop_owner.index');
 });
 
 Route::middleware('auth')->group(function () {

@@ -42,6 +42,13 @@
                                     {{ __('Admin Dashboard') }}
                                 </x-dropdown-link>
                             @endif
+
+                            @if(Auth::user()->is_business_owner==1)
+                                <x-dropdown-link :href="route('shop_owner.index')">
+                                    {{ __('Shop Dashboard') }}
+                                </x-dropdown-link>
+                            @endif
+
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>

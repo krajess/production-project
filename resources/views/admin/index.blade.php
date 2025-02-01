@@ -12,9 +12,9 @@
                     <h2> {{ __("MANAGEMENT MENU") }} </h2>
                 </div>
                 <a href="{{ route('admin.index') }}" class="btn-dark mb-2 block text-center">Dashboard</a>
-                <a href="{{ route('admin.index') }}" class="btn-dark mb-2 block text-center">Businesses</a>
+                <a href="{{ route('admin.shops') }}" class="btn-dark mb-2 block text-center">Businesses</a>
                 <a href="{{ route('admin.index') }}" class="btn-dark mb-2 block text-center">Applications</a>
-                <a href="{{ route('admin.index') }}" class="btn-dark mb-2 block text-center">Users</a>
+                <a href="{{ route('admin.users') }}" class="btn-dark mb-2 block text-center">Users</a>
             </div>
         </div>
 

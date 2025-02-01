@@ -20,6 +20,8 @@ Route::get('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show')
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/businesses', [AdminController::class, 'shops'])->name('admin.shops');
 });
 
 Route::middleware(['auth', 'can:is-business-owner'])->group(function () {

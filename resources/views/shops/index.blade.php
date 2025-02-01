@@ -12,6 +12,7 @@
                     <ul>
                         @foreach ($shops as $shop)
                             <li>
+                                <h2> Business Name: </h2>
                                 <a href="{{ route('shops.show', $shop->id) }}">{{ $shop->name }}</a>
                             </li>
                         @endforeach

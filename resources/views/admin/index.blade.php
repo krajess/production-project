@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
     
-    <x-background-layout>
-        
-    </x-background-layout>
+    <x-nav-menu-admin>
+
+    </x-nav-menu-admin>
 
 </x-app-layout>

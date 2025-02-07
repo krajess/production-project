@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <x-background-layout>
+    <x-nav-shop-owner>
 
-    </x-background-layout>
+    </x-nav-shop-owner>
 
 </x-app-layout>

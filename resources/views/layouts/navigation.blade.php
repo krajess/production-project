@@ -43,7 +43,7 @@
                                 </x-dropdown-link>
                             @endif
 
-                            @if(Auth::user()->is_business_owner==1)
+                            @if (auth()->user()->is_business_owner)
                                 <x-dropdown-link :href="route('shop_owner.index')">
                                     {{ __('Shop Dashboard') }}
                                 </x-dropdown-link>

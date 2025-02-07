@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

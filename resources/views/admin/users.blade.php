@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Users') }}
+            {{ __('ADMIN DASHBOARD - Users') }}
         </h2>
     </x-slot>
 
@@ -44,9 +44,13 @@
                                         {{ $user->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if ($user->is_business_owner) Business Owner @endif
-                                        @if ($user->is_business_manager) Business Manager @endif
-                                        @if ($user->is_customer) Customer @endif
+                                        @php
+                                            $roles = [];
+                                            if ($user->is_business_owner) $roles[] = 'Business Owner';
+                                            if ($user->is_business_manager) $roles[] = 'Business Manager';
+                                            if ($user->is_customer) $roles[] = 'Customer';
+                                        @endphp
+                                        {{ implode(' | ', $roles) }}
                                     </td>
                                 </tr>
                             @endforeach

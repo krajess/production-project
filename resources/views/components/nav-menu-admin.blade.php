@@ -16,7 +16,7 @@
             <div x-data="{ open: false }" class="w-full">
                 <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Applications</button>
                 <div x-show="open" class="mt-2 space-y-2">
-                    <a href="{{ route('admin.index') }}" class="btn-bright mb-2 block text-center">View Applications</a>
+                    <a href="{{ route('admin.applications') }}" class="btn-bright mb-2 block text-center">View Applications</a>
                 </div>
             </div>
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShopOwnerController;
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,11 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 
 Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
     Route::get('/shop_dashboard', [ShopOwnerController::class, 'index'])->name('shop_owner.index');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('applications/create', [ApplicationController::class, 'create'])->name('applications.create');
 });
 
 Route::middleware('auth')->group(function () {

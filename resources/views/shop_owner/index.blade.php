@@ -5,8 +5,9 @@
         </h2>
     </x-slot>
 
-    <x-nav-shop-owner>
-
-    </x-nav-shop-owner>
+    <div class="flex">
+        <x-nav-shop-owner>
+            
+        </x-nav-shop-owner>
 
 </x-app-layout>

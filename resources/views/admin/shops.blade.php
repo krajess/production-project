@@ -1,12 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Businesses') }}
+            {{ __('ADMIN DASHBOARD - Businesses') }}
         </h2>
     </x-slot>
 
     <div class="flex">
         <x-nav-menu-admin>
+
         </x-nav-menu-admin>
 
     <div class="w-4/5 py-4">

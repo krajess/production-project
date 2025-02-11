@@ -10,6 +10,59 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <p> Here form to send application: </p>
+                    <form action="{{ route('applications.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">First Name</label>
+                            <input type="text" name="first_name" id="first_name" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Last Name</label>
+                            <input type="text" name="last_name" id="last_name" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
+                            <input type="email" name="email" id="email" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Address</label>
+                            <input type="text" name="address" id="address" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-200">City</label>
+                            <input type="text" name="city" id="city" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="postcode" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Postcode</label>
+                            <input type="text" name="postcode" id="postcode" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="country" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Country</label>
+                            <input type="text" name="country" id="country" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="business_name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Name</label>
+                            <input type="text" name="business_name" id="business_name" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="business_type" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Type</label>
+                            <input type="text" name="business_type" id="business_type" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="business_description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Description</label>
+                            <textarea name="business_description" id="business_description" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="business_experience" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Experience</label>
+                            <textarea name="business_experience" id="business_experience" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn-dark">Send Application</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Shop;
+use App\Models\Application;
 
 class AdminController extends Controller
 {
@@ -22,5 +23,11 @@ class AdminController extends Controller
     {
         $shops = Shop::with('owner')->get();
         return view('admin.shops', compact('shops'));
+    }
+
+    public function applications()
+    {
+        $applications = Application::all();
+        return view('admin.applications', compact('applications'));
     }
 }

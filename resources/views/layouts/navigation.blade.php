@@ -16,7 +16,10 @@
                         {{ __('Welcome') }}
                     </x-nav-link>
                     <x-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
-                        {{ __('Shops') }}
+                        {{ __('Businesses') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
+                        {{ __('Business Applications') }}
                     </x-nav-link>
                 </div>
             </div>

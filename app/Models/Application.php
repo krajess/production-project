@@ -2,12 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    public function applications()
-    {
-        return $this->hasMany(Application::class);
-    }
+    use HasFactory;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'address',
+        'city',
+        'postcode',
+        'country',
+        'business_name',
+        'business_type',
+        'business_description',
+        'business_experience',
+    ];
+
 }

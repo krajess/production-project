@@ -23,6 +23,9 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/admin/businesses', [AdminController::class, 'shops'])->name('admin.shops');
+    Route::get('/admin/applications', [AdminController::class, 'applications'])->name('admin.applications');
+    Route::get('/admin/applications/{application}', [ApplicationController::class, 'show'])->name('admin.show-application');
+    Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 });
 
 Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
@@ -32,6 +35,7 @@ Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('applications', [ApplicationController::class, 'index'])->name('applications.index');
     Route::get('applications/create', [ApplicationController::class, 'create'])->name('applications.create');
+    Route::post('applications', [ApplicationController::class, 'store'])->name('applications.store');
 });
 
 Route::middleware('auth')->group(function () {

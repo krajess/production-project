@@ -18,15 +18,17 @@
                     <x-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
                         {{ __('Businesses') }}
                     </x-nav-link>
+                    @auth
                     <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
                         {{ __('Business Applications') }}
                     </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                @if (Auth::check())
+                @if (auth()->check())
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -46,7 +48,7 @@
                                 </x-dropdown-link>
                             @endif
 
-                            @if (auth()->user()->is_business_owner)
+                            @if(Auth::user()->is_shop_owner==1)
                                 <x-dropdown-link :href="route('shop_owner.index')">
                                     {{ __('Shop Dashboard') }}
                                 </x-dropdown-link>

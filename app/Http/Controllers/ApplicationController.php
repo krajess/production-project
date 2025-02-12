@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+
 
 class ApplicationController extends Controller
 {
@@ -66,14 +68,26 @@ class ApplicationController extends Controller
     }
 
     public function updateStatus(Request $request, Application $application)
-{
-    $request->validate([
-        'status' => 'required|string|in:new,pending,accepted,rejected',
-    ]);
-
-    $application->status = $request->input('status');
-    $application->save();
-
-    return redirect()->route('admin.applications')->with('status', 'Application status updated successfully!');
-}
+    {
+        $request->validate([
+            'status' => 'required|string|in:new,pending,accepted,rejected',
+        ]);
+    
+        $application->status = $request->input('status');
+        $application->save();
+    
+        if ($application->status === 'accepted') {
+            $user = $application->user;
+            $user->is_business_owner == 1;
+            $user->save();
+    
+            Shop::create([
+                'name' => $application->business_name,
+                'description' => $application->business_description,
+                'owner_id' => $user->id,
+            ]);
+        }
+    
+        return redirect()->route('admin.applications')->with('status', 'Application status updated successfully!');
+    }
 }

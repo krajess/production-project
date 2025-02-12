@@ -24,4 +24,9 @@ class Application extends Model
         'business_experience',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

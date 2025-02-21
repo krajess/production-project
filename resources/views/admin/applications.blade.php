@@ -62,6 +62,7 @@
                                         <a href="{{ route('admin.show-application', $application->id) }}" class="btn-dark">View</a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($application->status != 'accepted' && $application->status != 'rejected')
                                         <form action="{{ route('applications.updateStatus', $application->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
@@ -73,6 +74,9 @@
                                             </select>
                                             <button type="submit" class="btn-dark mt-2">Update</button>
                                         </form>
+                                        @else
+                                        <p>{{ $application->status }}</p>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

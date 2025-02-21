@@ -78,7 +78,7 @@ class ApplicationController extends Controller
     
         if ($application->status === 'accepted') {
             $user = $application->user;
-            $user->is_business_owner == 1;
+            $user->is_business_owner = 1;
             $user->save();
     
             Shop::create([
@@ -88,6 +88,6 @@ class ApplicationController extends Controller
             ]);
         }
     
-        return redirect()->route('admin.applications')->with('status', 'Application status updated successfully!');
+        return redirect()->route('admin.applications');
     }
 }

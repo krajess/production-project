@@ -30,6 +30,8 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 
 Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
     Route::get('/shop_dashboard', [ShopOwnerController::class, 'index'])->name('shop_owner.index');
+    Route::get('/shop_dashboard/{shop}', [ShopOwnerController::class, 'edit'])->name('shop_owner.edit');
+    Route::patch('/shop_dashboard/{shop}', [ShopOwnerController::class, 'update'])->name('shop_owner.update');
 });
 
 Route::middleware('auth')->group(function () {

@@ -5,7 +5,18 @@
                 <h2> {{ __("MANAGEMENT MENU") }} </h2>
             </div>
             <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Dashboard</a>
-            <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Store</a>
+            <div x-data="{ open: false }" class="w-full">
+                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Stores</button>
+                <div x-show="open" class="mt-2 space-y-2">
+                    @if (auth()->user()->shops && auth()->user()->shops->count() > 0)
+                        @foreach (auth()->user()->shops as $shop)
+                            <a href="{{ route('shop_owner.edit', $shop->id) }}" class="btn-bright block text-center">{{ $shop->name }}</a>
+                        @endforeach
+                    @else
+                        <p class="text-center text-gray-500">No shops available</p>
+                    @endif
+                </div>
+            </div>
             <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Product</a>
             <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Overview</a>
         </div>

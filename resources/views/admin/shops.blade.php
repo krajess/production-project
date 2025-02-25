@@ -30,6 +30,9 @@
                                     Owner Email
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
+                                    Visible
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
                                     View
                                 </th>
                             </tr>
@@ -48,6 +51,13 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $shop->owner->email }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <form action="{{ route('shop_owner.update', $shop->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="checkbox" name="visible" {{ $shop->visible ? 'checked' : '' }} onchange="this.form.submit()">
+                                        </form>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('shops.show', $shop->id) }}" class="btn-dark">View</a>

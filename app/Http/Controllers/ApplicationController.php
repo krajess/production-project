@@ -6,14 +6,17 @@ use App\Models\Application;
 use App\Http\Controllers\Controller;
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class ApplicationController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $appSent = Application::where('user_id', $user->id)->exists();
         $applications = Application::all();
-        return view('applications.index', compact('applications'));
+        return view('applications.index', compact('applications', 'appSent'));
     }
 
     public function create()

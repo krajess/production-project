@@ -17,7 +17,16 @@
                     @endif
                 </div>
             </div>
-            <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Product</a>
+            <div x-data="{ open: false }" class="w-full">
+                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Products</button>
+                <div x-show="open" class="mt-2 space-y-2">
+                    @if (auth()->user()->shops && auth()->user()->shops->count() > 0)
+                        @foreach (auth()->user()->shops as $shop)
+                            <a href="{{ route('products.create', $shop->id) }}" class="btn-bright block text-center">Add Product</a>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
             <a href="{{ route('shop_owner.index') }}" class="btn-dark mb-2 block text-center">Overview</a>
         </div>
     </div>

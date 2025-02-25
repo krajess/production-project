@@ -30,7 +30,7 @@ class ApplicationController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'phone' => 'required|digits_between:10,15',
+            'phone' => 'required|digits_between:5,15',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'postcode' => 'required|string|max:10',

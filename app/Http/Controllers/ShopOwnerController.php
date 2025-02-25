@@ -21,7 +21,14 @@ class ShopOwnerController extends Controller
     public function update(Request $request, $id)
     {
         $shop = Shop::findOrFail($id);
-        $shop->update($request->all());
+
+        $shop->visible = $request->has('visible') ? 1 : 0;
+
+        $shop->name = $request->input('name');
+        $shop->description = $request->input('description');
+
+        $shop->save();
+
         return redirect()->route('shop_owner.index');
     }
 }

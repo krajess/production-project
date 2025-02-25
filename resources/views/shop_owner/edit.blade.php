@@ -26,6 +26,10 @@
                                 <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
                                 <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>{{ $shop->description }}</textarea>
                             </div>
+                            <div class="mb-4">
+                                <label for="visible" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Visible</label>
+                                <input type="checkbox" name="visible" id="visible" {{ $shop->visible ? 'checked' : '' }}>
+                            </div>
                             <button type="submit" class="btn-dark mt-2">Update</button>
                         </form>
                     </div>

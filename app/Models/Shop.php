@@ -13,6 +13,7 @@ class Shop extends Model
         'name',
         'description',
         'owner_id',
+        'visible',
     ];
 
 

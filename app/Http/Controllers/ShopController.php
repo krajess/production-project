@@ -9,7 +9,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::all();
+        $shops = Shop::where('visible', true)->get();
         return view('shops.index', compact('shops'));
     }
 
@@ -23,8 +23,9 @@ class ShopController extends Controller
         //
     }
 
-    public function show(Shop $shop)
+    public function show($id)
     {
+        $shop = Shop::with('products')->findOrFail($id);
         return view('shops.show', compact('shop'));
     }
 

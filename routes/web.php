@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShopOwnerController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +33,9 @@ Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
     Route::get('/shop_dashboard', [ShopOwnerController::class, 'index'])->name('shop_owner.index');
     Route::get('/shop_dashboard/{shop}', [ShopOwnerController::class, 'edit'])->name('shop_owner.edit');
     Route::patch('/shop_dashboard/{shop}', [ShopOwnerController::class, 'update'])->name('shop_owner.update');
+
+    Route::get('/shops/{shop}/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/shops/{shop}/products', [ProductController::class, 'store'])->name('products.store');
 });
 
 Route::middleware('auth')->group(function () {

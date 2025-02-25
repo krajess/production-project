@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Shop;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -20,17 +22,29 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($shopID)
     {
-        //
+        $shop = Shop::find($shopID);
+        return view('products.create', compact('shop'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request, $shopID)
     {
-        //
+
+        $shop = Shop::find($shopID);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+        ]);
+
+        $shop->products()->create($request->all());
+
+        return redirect()->route('shop_owner.index');
     }
 
     /**

@@ -27,6 +27,7 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin/applications', [AdminController::class, 'applications'])->name('admin.applications');
     Route::get('/admin/applications/{application}', [ApplicationController::class, 'show'])->name('admin.show-application');
     Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+    Route::patch('/admin/businesses/{shop}/visible', [AdminController::class, 'ShopVisible'])->name('admin.shops.ShopVisible');
 });
 
 Route::middleware(['auth', 'can:is-business-owner'])->group(function () {

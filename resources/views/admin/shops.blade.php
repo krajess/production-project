@@ -53,7 +53,7 @@
                                         {{ $shop->owner->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="{{ route('shop_owner.update', $shop->id) }}" method="POST">
+                                        <form action="{{ route('admin.shops.ShopVisible', $shop->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <input type="checkbox" name="visible" {{ $shop->visible ? 'checked' : '' }} onchange="this.form.submit()">

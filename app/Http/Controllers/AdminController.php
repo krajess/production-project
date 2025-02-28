@@ -30,4 +30,12 @@ class AdminController extends Controller
         $applications = Application::all();
         return view('admin.applications', compact('applications'));
     }
+
+    public function ShopVisible(Request $request, Shop $shop)
+    {
+        $shop->visible = $request->has('visible') ? 1 : 0;
+        $shop->save();
+        
+        return redirect()->route('admin.shops');
+    }
 }

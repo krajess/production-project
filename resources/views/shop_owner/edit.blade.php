@@ -23,8 +23,12 @@
                                 <input type="text" name="name" id="name" value="{{ $shop->name }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>
                             </div>
                             <div class="mb-4">
-                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
+                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description in businesses</label>
                                 <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>{{ $shop->description }}</textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="description2" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description inside shop</label>
+                                <textarea name="description2" id="description2" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>{{ $shop->description2 }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="visible" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Visible</label>

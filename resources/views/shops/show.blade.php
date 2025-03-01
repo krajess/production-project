@@ -1,37 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
             {{ $shop->name }}
         </h2>
     </x-slot>
 
-    <div class="w-1/6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 m-4 flex flex-col items-center">
-        <div class="text-gray-900 dark:text-gray-100 w-full">
-            <h2> Filters </h2>
-            
+    <div class="flex">
+        <x-nav-filter-menu>
+        </x-nav-filter-menu>
+        
+        <div class="flex flex-wrap justify-start w-full">
+            @if($shop->products->isEmpty())
+                <p>No products available for this shop.</p>
+            @else
+                @foreach($shop->products as $product)
+                    <div class="border rounded-lg p-4 flex flex-col bg-white shadow-md m-2" style="flex: 1 1 calc(25% - 2rem); max-width: calc(25% - 2rem); box-sizing: border-box; margin: 1rem;">
+                        <div class="flex items-center">
+                            <div class="flex flex-col w-full">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="font-bold text-md">{{ $product->name }}</p>
+                                    <p class="bg-blue-200 text-black px-2 mr-2 rounded border border-black">{{ $product->name }}</p>
+                                </div>
+                                <p class="text-gray-700 mb-1">{{ $product->description }}</p>
+                                <p class="text-green-500 font-semibold mb-3">&pound {{ number_format($product->price, 2) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-4">
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
-
-<head>
-    <title>Shop Details</title>
-</head>
-<body>
-    <p>{{ $shop->description }}</p>
-    <p>Owner ID: {{ $shop->owner_id }}</p>
-
-    <h2>Products</h2>
-    @if($shop->products->isEmpty())
-        <p>No products available for this shop.</p>
-    @else
-        <ul>
-            @foreach($shop->products as $product)
-                <li>
-                    <h3>{{ $product->name }}</h3>
-                    <p>{{ $product->description }}</p>
-                    <p>Price: £{{ $product->price }}</p>
-                </li>
-            @endforeach
-        </ul>
-    @endif
-</body>
 </x-app-layout>

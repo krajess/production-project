@@ -26,6 +26,7 @@ class ShopOwnerController extends Controller
 
         $shop->name = $request->input('name');
         $shop->description = $request->input('description');
+        $shop->description2 = $request->input('description2');
 
         $shop->save();
 

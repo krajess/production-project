@@ -50,9 +50,9 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Shop $shop, Product $product)
     {
-        //
+        return view('products.show', compact('shop', 'product'));
     }
 
     /**

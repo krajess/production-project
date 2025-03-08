@@ -26,7 +26,11 @@
                             <div class="flex justify-between mt-4">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded">Purchase</button>
                                 <button class="bg-green-500 text-white px-4 py-2 rounded" onclick="window.location='{{ route('shops.products.show', ['shop' => $shop->id, 'product' => $product->id]) }}'">View</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded">Add to Basket</button>
+                                <form action="{{ route('cart.add', $product) }}" method="POST">
+                                    @csrf
+                                    <input type="number" name="quantity" value="1" min="1">
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Add to Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
 
     Route::get('/shops/{shop}/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/shops/{shop}/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/shops/{shop}/products/{product}', [ProductController::class, 'show'])->name('shops.products.show');
 });
 
 Route::middleware('auth')->group(function () {

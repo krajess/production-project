@@ -1,6 +1,12 @@
 <div class="container">
     <h1>Your Cart</h1>
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -35,7 +41,7 @@
                             <form action="{{ route('cart.remove', $product) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Remove</button>
+                                <button type="submit">Remove Productc</button>
                             </form>
                         </td>
                     </tr>

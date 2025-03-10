@@ -20,14 +20,19 @@ class CartController extends Controller
         $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
     
         if ($cart->products()->exists() && $cart->products()->first()->shop_id !== $product->shop_id) {
-            return redirect()->route('cart.index');
+            return redirect()->route('cart.index')->with('error', 'You cannot add products from different vendors.');
         }
     
-        $cart->products()->syncWithoutDetaching([
-            $product->id => ['quantity' => $request->input('quantity', 1)]
-        ]);
+        $existingProduct = $cart->products()->where('product_id', $product->id)->first();
     
-        return redirect()->route('cart.index');
+        if ($existingProduct) {
+            $newQuantity = $existingProduct->pivot->quantity + $request->input('quantity', 1);
+            $cart->products()->updateExistingPivot($product->id, ['quantity' => $newQuantity]);
+        } else {
+            $cart->products()->attach($product->id, ['quantity' => $request->input('quantity', 1)]);
+        }
+    
+        return redirect()->route('cart.index')->with('success', 'Product successfully added to cart.');
     }
 
     public function update(Request $request, Product $product)

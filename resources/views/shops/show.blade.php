@@ -26,10 +26,14 @@
                             <div class="flex justify-between mt-4">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded">Purchase</button>
                                 <button class="bg-green-500 text-white px-4 py-2 rounded" onclick="window.location='{{ route('shops.products.show', ['shop' => $shop->id, 'product' => $product->id]) }}'">View</button>
-                                <form action="{{ route('cart.add', $product) }}" method="POST">
+                                <form action="{{ route('cart.add', $product) }}" method="POST" class="flex items-center">
                                     @csrf
-                                    <input type="number" name="quantity" value="1" min="1">
-                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Add to Cart</button>
+                                    <div class="flex items-center border-none">
+                                        <button type="button" class="bg-gray-300 text-gray-800 px-2 py-1/2 rounded" onclick="this.nextElementSibling.stepDown()">-</button>
+                                        <input type="number" name="quantity" value="1" min="1" class="w-10 text-center border-none">
+                                        <button type="button" class="bg-gray-300 text-gray-800 px-2 py-1/2 rounded" onclick="this.previousElementSibling.stepUp()">+</button>
+                                    </div>
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded ml-2">Add to Cart</button>
                                 </form>
                             </div>
                         </div>
@@ -39,3 +43,20 @@
         </div>
     </div>
 </x-app-layout>
+
+<style>
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    input[type=number]:focus {
+    outline: none;
+    box-shadow: none;
+}
+</style>

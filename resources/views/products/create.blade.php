@@ -23,6 +23,10 @@
                             <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Price</label>
                             <input type="number" name="price" id="price" class="form-input rounded-md shadow-sm mt-1 block w-full" step="0.01" required>
                         </div>
+                        <div class="mb-4">
+                            <label for="stock" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Stock</label>
+                            <input type="number" name="stock" id="stock" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                        </div>
                         <button type="submit" class="btn-dark">Add Product</button>
                     </form>
                 </div>

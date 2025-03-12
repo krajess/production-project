@@ -38,11 +38,11 @@ Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
 
     Route::get('/shops/{shop}/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/shops/{shop}/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/shops/{shop}/products/{product}', [ProductController::class, 'show'])->name('shops.products.show');
     Route::get('/shops/{shop}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::patch('/shops/{shop}/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/shops/{shop}/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
+Route::get('/shops/{shop}/products/{product}', [ProductController::class, 'show'])->name('shops.products.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

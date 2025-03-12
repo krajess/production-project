@@ -40,6 +40,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'stock' => 'required|integer',
         ]);
 
         $shop->products()->create($request->all());

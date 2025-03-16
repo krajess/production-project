@@ -33,19 +33,20 @@ class ProductController extends Controller
      */
     public function store(Request $request, $shopID)
     {
-
         $shop = Shop::find($shopID);
+        $products = $request->input('products');
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-        ]);
+        foreach ($products as $productData) {
+            $product = new Product();
+            $product->shop_id = $shopID;
+            $product->name = $productData['name'];
+            $product->description = $productData['description'];
+            $product->price = $productData['price'];
+            $product->stock = $productData['stock'];
+            $product->save();
+        }
 
-        $shop->products()->create($request->all());
-
-        return redirect()->route('shop_owner.index');
+        return redirect()->route('products.create', $shopID);
     }
 
     /**

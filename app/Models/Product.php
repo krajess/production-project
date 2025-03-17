@@ -14,6 +14,7 @@ class Product extends Model
         'description',
         'price',
         'stock',
+        'product_types_name',
     ];
 
     public function shop()
@@ -24,5 +25,10 @@ class Product extends Model
     public function cart()
     {
         return $this->belongsToMany(Cart::class)->withPivot('quantity')->withTimestamps();
+    }
+
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class);
     }
 }

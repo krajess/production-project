@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -25,7 +26,8 @@ class ProductController extends Controller
     public function create($shopID)
     {
         $shop = Shop::find($shopID);
-        return view('products.create', compact('shop'));
+        $productTypes = ProductType::all();
+        return view('products.create', compact('shop', 'productTypes'));
     }
 
     /**
@@ -43,6 +45,8 @@ class ProductController extends Controller
             $product->description = $productData['description'];
             $product->price = $productData['price'];
             $product->stock = $productData['stock'];
+            $productType = ProductType::find($productData['product_type_id']);
+            $product->product_types_name = $productType ? $productType->name : null;
             $product->save();
         }
 

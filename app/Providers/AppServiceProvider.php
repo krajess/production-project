@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use App\Models\Shop;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('is-customer', function (User $user) {
             return $user->is_customer;
+        });
+
+        Gate::define('view-shop', function (User $user, Shop $shop) {
+            return $user->is_admin || $user->id === $shop->owner_id;
         });
     }
 }

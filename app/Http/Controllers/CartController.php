@@ -37,15 +37,17 @@ class CartController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $cart = Auth::user()->cart;
-
-        if ($cart) {
-            $cart->products()->updateExistingPivot($product->id, ['quantity' => $request->input('quantity')]);
+        $quantity = $request->input('quantity');
+    
+        if ($quantity < 1 || $quantity > $product->stock) {
+            return redirect()->back()->with('error', 'Quantity must be between 1 and ' . $product->stock);
         }
-
-        return redirect()->route('cart.index');
+    
+        $cart = Auth::user()->cart;
+        $cart->products()->updateExistingPivot($product->id, ['quantity' => $quantity]);
+    
+        return redirect()->back()->with('success', 'Quantity updated successfully');
     }
-
     public function remove(Product $product)
     {
         $cart = Auth::user()->cart;

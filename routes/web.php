@@ -14,12 +14,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
-//Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
-//Route::post('/shops', [ShopController::class, 'store'])->name('shops.store');
 Route::get('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show');
-//Route::get('/shops/{shop}/edit', [ShopController::class, 'edit'])->name('shops.edit');
-//Route::patch('/shops/{shop}', [ShopController::class, 'update'])->name('shops.update');
-//Route::delete('/shops/{shop}', [ShopController::class, 'destroy'])->name('shops.destroy');
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

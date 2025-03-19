@@ -1,66 +1,141 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
-            {{ __('Your Cart') }}
+            {{ __('Your Cart') }} {{ $cart->products->count() ? '(' . $cart->products->count() . ' items)' : '' }}
         </h2>
     </x-slot>
-
     
+    @if(session('success') || session('error'))
+        <div class="py-8">
+            <div class="w-full mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        @if(session('success'))
+                            <div class="alert alert-success text-center">
+                                {{ session('success') }}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="flex">
         <x-nav-cart-menu>
         </x-nav-cart-menu>
         
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-                @endif
-
-                @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-                @endif
-
-                @if($cart && $cart->products->count())
-                <div class="flex flex-col space-y-6">
-                    @foreach($cart->products as $product)
-                    <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full md:w-48 h-48 object-cover">
-                        <div class="p-4 flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-lg font-semibold">{{ $product->name }}</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Quantity: {{ $product->pivot->quantity }}</p>
-                                <p class="text-gray-600 dark:text-gray-400">Price: &pound;{{ number_format($product->price, 2) }}</p>
-                                <p class="text-gray-600 dark:text-gray-400">Total: &pound;{{ number_format($product->price * $product->pivot->quantity, 2) }}</p>
+        <div class="py-8 w-2/3" style="margin-top: -15px; margin-right: 15px;">
+            <div class="w-full">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        @if($cart && $cart->products->count())
+                        <div class="flex flex-col space-y-6">
+                            @foreach($cart->products as $product)
+                            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
+                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full md:w-48 h-48 object-cover">
+                                <div class="p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h1 style="font-size: 22px; font-weight: bold; margin-top: -20px;">{{ $product->name }}</h1>
+                                        <p class="text-green-800 text-lg font-bold mt-4 mb-2">&pound;{{ number_format($product->price, 2) }}</p>
+                                        <p class="text-gray-600 text-sm dark:text-gray-400">Total: &pound;{{ number_format($product->price * $product->pivot->quantity, 2) }}</p>
+                                        <p class="text-gray-600 text-sm dark:text-gray-400">Qty: {{ $product->pivot->quantity }}</p>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="flex space-x-2 border-2 border-gray-200 dark:border-gray-600 rounded w-40">
+                                            <form action="{{ route('cart.update', $product) }}" method="POST" class="flex items-center" id="update-form-{{ $product->id }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="button" class="p-1 rounded" onclick="updateQuantity({{ $product->id }}, {{ $product->pivot->quantity + 1 }}, {{ $product->stock }})">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    </svg>                                              
+                                                </button>
+                                                <input type="number" name="quantity" value="{{ $product->pivot->quantity }}" min="1" max="{{ $product->stock }}" class="w-12 p-1 border-none text-center no-arrows" onblur="updateQuantity({{ $product->id }}, this.value, {{ $product->stock }})">
+                                                <button type="button" class="p-1 rounded" onclick="updateQuantity({{ $product->id }}, {{ $product->pivot->quantity - 1 }}, {{ $product->stock }})">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    </svg>                                              
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('cart.remove', $product) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="p-1 rounded">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-4 flex space-x-2">
-                                <form action="{{ route('cart.update', $product) }}" method="POST" class="flex items-center">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="number" name="quantity" value="{{ $product->pivot->quantity }}" min="1" class="w-16 p-1 border rounded">
-                                    <button type="submit" class="ml-2 bg-blue-500 text-white px-3 py-1 rounded">Update</button>
-                                </form>
-                                <form action="{{ route('cart.remove', $product) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Remove</button>
-                                </form>
-                            </div>
+                            @endforeach
                         </div>
+                        @else
+                        <p class="text-center">Your cart is empty.</p>
+                        @endif
                     </div>
-                    @endforeach
                 </div>
-                @else
-                <p>Your cart is empty.</p>
-                @endif
-
             </div>
         </div>
-    </div>
-</div>
 </x-app-layout>
+
+<script>
+    function updateQuantity(productId, quantity, maxStock) {
+        if (quantity < 1 || quantity > maxStock) {
+            alert(`There is only ${maxStock} item(s) in stock.`);
+            return;
+        }
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/cart/update/${productId}`;
+
+        const csrfField = document.createElement('input');
+        csrfField.type = 'hidden';
+        csrfField.name = '_token';
+        csrfField.value = '{{ csrf_token() }}';
+        form.appendChild(csrfField);
+
+        const methodField = document.createElement('input');
+        methodField.type = 'hidden';
+        methodField.name = '_method';
+        methodField.value = 'PATCH';
+        form.appendChild(methodField);
+
+        const quantityField = document.createElement('input');
+        quantityField.type = 'hidden';
+        quantityField.name = 'quantity';
+        quantityField.value = quantity;
+        form.appendChild(quantityField);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    document.querySelectorAll('input[name="quantity"]').forEach(input => {
+        input.addEventListener('blur', function() {
+            const productId = this.closest('form').id.split('-').pop();
+            const maxStock = this.getAttribute('max');
+            updateQuantity(productId, this.value, maxStock);
+        });
+    });
+</script>
+
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+<style>

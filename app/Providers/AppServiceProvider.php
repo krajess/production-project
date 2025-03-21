@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\Shop;
+use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +44,11 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('view-shop', function (User $user, Shop $shop) {
             return $user->is_admin || $user->id === $shop->owner_id;
+        });
+
+        View::composer('layouts.navigation', function ($view) {
+            $appSent = Application::where('user_id', Auth::id())->exists();
+            $view->with('appSent', $appSent);
         });
     }
 }

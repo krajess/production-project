@@ -14,9 +14,9 @@ class ApplicationController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $application = Application::where('user_id', $user->id)->first();
         $appSent = Application::where('user_id', $user->id)->exists();
-        $applications = Application::all();
-        return view('applications.index', compact('applications', 'appSent'));
+        return view('applications.index', compact('application', 'appSent'));
     }
 
     public function create()

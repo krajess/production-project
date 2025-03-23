@@ -19,14 +19,16 @@
                         {{ __('Businesses') }}
                     </x-nav-link>
                     @auth
-                        @if($appSent)
-                            <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
-                                {{ __('Application Status') }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
-                                {{ __('Business Applications') }}
-                            </x-nav-link>
+                        @if(!Auth::user()->is_admin==1)
+                            @if($appSent)
+                                <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
+                                    {{ __('Application Status') }}
+                                </x-nav-link>
+                            @else
+                                <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
+                                    {{ __('Business Applications') }}
+                                </x-nav-link>
+                            @endif
                         @endif
                     @endauth
                 </div>

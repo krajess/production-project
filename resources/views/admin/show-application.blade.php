@@ -21,10 +21,10 @@
                     <p>City: {{ $application->city }}</p>
                     <p>Postcode: {{ $application->postcode }}</p>
                     <p>Country: {{ $application->country }}</p>
-                    <p>Business Name: {{ $application->business_name }}</p>
-                    <p>Business Type: {{ $application->business_type }}</p>
-                    <p>Business Description: {{ $application->business_description }}</p>
-                    <p>Business Experience: {{ $application->business_experience }}</p>
+                    <p>Vendor Name: {{ $application->vendor_name }}</p>
+                    <p>Vendor Type: {{ $application->vendor_type }}</p>
+                    <p>Vendor Description: {{ $application->vendor_description }}</p>
+                    <p>Vendor Experience: {{ $application->vendor_experience }}</p>
                     <br>
                 </div>
             </div>

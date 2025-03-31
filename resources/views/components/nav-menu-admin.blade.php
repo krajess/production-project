@@ -7,9 +7,9 @@
             <a href="{{ route('admin.index') }}" class="btn-dark mb-2 block text-center">Dashboard</a>
             
             <div x-data="{ open: false }" class="w-full">
-                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Businesses</button>
+                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Vendors</button>
                 <div x-show="open" class="mt-2 space-y-2">
-                    <a href="{{ route('admin.shops') }}" class="btn-bright block text-center">View Businesses</a>
+                    <a href="{{ route('admin.vendors') }}" class="btn-bright block text-center">View Vendors</a>
                 </div>
             </div>
 

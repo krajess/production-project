@@ -46,8 +46,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @php
                                             $roles = [];
-                                            if ($user->is_business_owner) $roles[] = 'Business Owner';
-                                            if ($user->is_business_manager) $roles[] = 'Business Manager';
+                                            if ($user->is_vendor_owner) $roles[] = 'Vendor Owner';
+                                            if ($user->is_vendor_manager) $roles[] = 'Vendor Manager';
                                             if ($user->is_customer) $roles[] = 'Customer';
                                         @endphp
                                         {{ implode(' | ', $roles) }}

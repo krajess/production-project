@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('city');
             $table->string('postcode');
             $table->string('country');
-            $table->string('business_name');
-            $table->string('business_type');
-            $table->string('business_description');
-            $table->string('business_experience');
+            $table->string('vendor_name');
+            $table->string('vendor_type');
+            $table->string('vendor_description');
+            $table->string('vendor_experience');
             $table->timestamps();
         });
     }

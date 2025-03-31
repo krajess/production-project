@@ -7,7 +7,7 @@ use App\Models\ProductType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Shop;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,24 +23,24 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($shopID)
+    public function create($vendorID)
     {
-        $shop = Shop::find($shopID);
+        $vendor = Vendor::find($vendorID);
         $productTypes = ProductType::all();
-        return view('products.create', compact('shop', 'productTypes'));
+        return view('products.create', compact('vendor', 'productTypes'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $shopID)
+    public function store(Request $request, $vendorID)
     {
-        $shop = Shop::find($shopID);
+        $vendor = Vendor::find($vendorID);
         $products = $request->input('products');
 
         foreach ($products as $productData) {
             $product = new Product();
-            $product->shop_id = $shopID;
+            $product->vendor_id = $vendorID;
             $product->name = $productData['name'];
             $product->description = $productData['description'];
             $product->price = $productData['price'];
@@ -50,15 +50,15 @@ class ProductController extends Controller
             $product->save();
         }
 
-        return redirect()->route('products.create', $shopID);
+        return redirect()->route('products.create', $vendorID);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Shop $shop, Product $product)
+    public function show(Vendor $vendor, Product $product)
     {
-        return view('products.show', compact('shop', 'product'));
+        return view('products.show', compact('vendor', 'product'));
     }
 
     /**

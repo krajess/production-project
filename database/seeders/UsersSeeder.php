@@ -21,8 +21,8 @@ class UsersSeeder extends Seeder
                 'email' => 'user@example.com',
                 'password' => Hash::make('polska123'),
                 'is_admin' => 0,
-                'is_business_owner' => 0,
-                'is_business_manager' => 0,
+                'is_vendor_owner' => 0,
+                'is_vendor_manager' => 0,
                 'is_customer' => 1,
             ],
             [
@@ -31,8 +31,8 @@ class UsersSeeder extends Seeder
                 'email' => 'owner@example.com',
                 'password' => Hash::make('polska123'),
                 'is_admin' => 0,
-                'is_business_owner' => 0,
-                'is_business_manager' => 0,
+                'is_vendor_owner' => 0,
+                'is_vendor_manager' => 0,
                 'is_customer' => 1,
             ],
             [
@@ -41,8 +41,8 @@ class UsersSeeder extends Seeder
                 'email' => 'admin@example.com',
                 'password' => Hash::make('polska123'),
                 'is_admin' => 1,
-                'is_business_owner' => 0,
-                'is_business_manager' => 0,
+                'is_vendor_owner' => 0,
+                'is_vendor_manager' => 0,
                 'is_customer' => 1,
             ],
         ]);

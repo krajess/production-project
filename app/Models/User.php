@@ -49,9 +49,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function shops()
+    public function vendors()
     {
-        return $this->hasMany(Shop::class, 'owner_id');
+        return $this->hasMany(Vendor::class, 'owner_id');
     }
 
     public function cart()

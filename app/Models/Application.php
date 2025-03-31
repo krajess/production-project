@@ -18,10 +18,10 @@ class Application extends Model
         'city',
         'postcode',
         'country',
-        'business_name',
-        'business_type',
-        'business_description',
-        'business_experience',
+        'vendor_name',
+        'vendor_type',
+        'vendor_description',
+        'vendor_experience',
     ];
 
     public function user()

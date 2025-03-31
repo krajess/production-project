@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Shop;
+use App\Models\Vendor;
 use App\Models\Application;
 
 class AdminController extends Controller
@@ -19,10 +19,10 @@ class AdminController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    public function shops()
+    public function vendors()
     {
-        $shops = Shop::with('owner')->get();
-        return view('admin.shops', compact('shops'));
+        $vendors = Vendor::with('owner')->get();
+        return view('admin.vendors', compact('vendors'));
     }
 
     public function applications()
@@ -31,11 +31,11 @@ class AdminController extends Controller
         return view('admin.applications', compact('applications'));
     }
 
-    public function ShopVisible(Request $request, Shop $shop)
+    public function VendorVisible(Request $request, Vendor $vendor)
     {
-        $shop->visible = $request->has('visible') ? 1 : 0;
-        $shop->save();
+        $vendor->visible = $request->has('visible') ? 1 : 0;
+        $vendor->save();
         
-        return redirect()->route('admin.shops');
+        return redirect()->route('admin.vendors');
     }
 }

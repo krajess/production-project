@@ -15,8 +15,8 @@
                     <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
                         {{ __('Welcome') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
-                        {{ __('Businesses') }}
+                    <x-nav-link :href="route('vendors.index')" :active="request()->routeIs('vendors.index')">
+                        {{ __('Vendors') }}
                     </x-nav-link>
                     @auth
                         @if(!Auth::user()->is_admin==1)
@@ -26,7 +26,7 @@
                                 </x-nav-link>
                             @else
                                 <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
-                                    {{ __('Business Applications') }}
+                                    {{ __('Vendor Applications') }}
                                 </x-nav-link>
                             @endif
                         @endif
@@ -55,9 +55,9 @@
                                     {{ __('Admin Dashboard') }}
                                 </x-dropdown-link>
                             @endif
-                            @if(Auth::user()->is_business_owner==1)
-                                <x-dropdown-link :href="route('shop_owner.index')">
-                                    {{ __('Shop Dashboard') }}
+                            @if(Auth::user()->is_vendor_owner==1)
+                                <x-dropdown-link :href="route('vendor_owner.index')">
+                                    {{ __('Vendor Dashboard') }}
                                 </x-dropdown-link>
                             @endif
 

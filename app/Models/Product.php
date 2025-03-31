@@ -17,9 +17,9 @@ class Product extends Model
         'product_types_name',
     ];
 
-    public function shop()
+    public function vendor()
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo(Vendor::class);
     }
 
     public function cart()

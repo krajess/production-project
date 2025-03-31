@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Http\Controllers\Controller;
-use App\Models\Shop;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,10 +35,10 @@ class ApplicationController extends Controller
             'city' => 'required|string|max:255',
             'postcode' => 'required|string|max:10',
             'country' => 'required|string|max:255',
-            'business_name' => 'required|string|max:255',
-            'business_type' => 'required|string|max:255',
-            'business_description' => 'required|string|max:1000',
-            'business_experience' => 'required|string|max:1000',
+            'vendor_name' => 'required|string|max:255',
+            'vendor_type' => 'required|string|max:255',
+            'vendor_description' => 'required|string|max:1000',
+            'vendor_experience' => 'required|string|max:1000',
         ]);
         
         $application = new Application($request->all());
@@ -81,12 +81,12 @@ class ApplicationController extends Controller
     
         if ($application->status === 'accepted') {
             $user = $application->user;
-            $user->is_business_owner = 1;
+            $user->is_vendor_owner = 1;
             $user->save();
     
-            Shop::create([
-                'name' => $application->business_name,
-                'description' => $application->business_description,
+            Vendor::create([
+                'name' => $application->vendor_name,
+                'description' => $application->vendor_description,
                 'owner_id' => $user->id,
             ]);
         }

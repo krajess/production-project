@@ -2,7 +2,7 @@
     @if($appSent == false)
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
-                {{ __('Business Application - How to apply for your online store?') }}
+                {{ __('Vendor Application - How to apply for your online store?') }}
             </h2>
         </x-slot>
         <div class="py-4">
@@ -39,7 +39,7 @@
                         @elseif($application->status == 'accepted')
                             <p> Status of your application is - APPROVED </p>
                             <p> Your application has been approved. You can now start adding your products. </p>
-                            <p> To manage your shop, click email and go to Shop Dashboard.
+                            <p> To manage your vendor, click email and go to Vendor Dashboard.
                         @endif
                     </div>
                 </div>

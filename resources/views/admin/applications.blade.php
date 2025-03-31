@@ -30,7 +30,7 @@
                                     Email
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
-                                    Business Name
+                                    Vendor Name
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
                                     View Application
@@ -56,7 +56,7 @@
                                         {{ $application->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $application->business_name }}
+                                        {{ $application->vendor_name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('admin.show-application', $application->id) }}" class="btn-dark">View</a>

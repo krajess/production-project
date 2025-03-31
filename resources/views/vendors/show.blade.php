@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
-            {{ $shop->name }}
+            {{ $vendor->name }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
         </x-nav-filter-menu>
         
         <div class="flex flex-wrap justify-start w-full">
-            @if($shop->products->isEmpty())
+            @if($vendor->products->isEmpty())
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             @else
-                @foreach($shop->products as $product)
+                @foreach($vendor->products as $product)
                     <div class="border rounded-lg p-4 flex flex-col bg-white shadow-md m-2" style="flex: 1 1 calc(33.33% - 2rem); max-width: calc(33.33% - 2rem); box-sizing: border-box; margin: 1rem;">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover mb-4 rounded">
                         <div class="flex flex-col w-full">
@@ -34,15 +34,15 @@
                             @if ($product->stock == 0)
                                 <p class="text-red-500 font-semibold mb-3">Out of stock - 0 available</p>
                                     <button class="bg-gray-300 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;" disabled>Purchase</button>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('shops.products.show', ['shop' => $shop->id, 'product' => $product->id]) }}'">View</button>
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @elseif ($product->stock < 10)
                                 <p class="text-orange-300 font-semibold mb-3">Low in stock - {{ $product->stock }} available</p>
                                     <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('shops.products.show', ['shop' => $shop->id, 'product' => $product->id]) }}'">View</button>
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @else
                                 <p class="text-black-700 mb-3">In stock - 10+ vailable</p>
                                     <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('shops.products.show', ['shop' => $shop->id, 'product' => $product->id]) }}'">View</button>
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @endif
                         </div>
                     </div>

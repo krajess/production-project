@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\ShopOwnerController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\VendorOwnerController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
@@ -13,31 +13,31 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
-Route::get('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show');
+Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
+Route::get('/vendors/{vendor}', [VendorController::class, 'show'])->name('vendors.show');
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/admin/businesses', [AdminController::class, 'shops'])->name('admin.shops');
+    Route::get('/admin/vendors', [AdminController::class, 'vendors'])->name('admin.vendors');
     Route::get('/admin/applications', [AdminController::class, 'applications'])->name('admin.applications');
     Route::get('/admin/applications/{application}', [ApplicationController::class, 'show'])->name('admin.show-application');
     Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
-    Route::patch('/admin/businesses/{shop}/visible', [AdminController::class, 'ShopVisible'])->name('admin.shops.ShopVisible');
+    Route::patch('/admin/vendors/{vendor}/visible', [AdminController::class, 'VendorVisible'])->name('admin.vendors.VendorVisible');
 });
 
-Route::middleware(['auth', 'can:is-business-owner'])->group(function () {
-    Route::get('/shop_dashboard', [ShopOwnerController::class, 'index'])->name('shop_owner.index');
-    Route::get('/shop_dashboard/{shop}', [ShopOwnerController::class, 'edit'])->name('shop_owner.edit');
-    Route::patch('/shop_dashboard/{shop}', [ShopOwnerController::class, 'update'])->name('shop_owner.update');
+Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
+    Route::get('/vendor_dashboard', [VendorOwnerController::class, 'index'])->name('vendor_owner.index');
+    Route::get('/vendor_dashboard/{vendor}', [VendorOwnerController::class, 'edit'])->name('vendor_owner.edit');
+    Route::patch('/vendor_dashboard/{vendor}', [VendorOwnerController::class, 'update'])->name('vendor_owner.update');
 
-    Route::get('/shops/{shop}/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/shops/{shop}/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/shops/{shop}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::patch('/shops/{shop}/products/{product}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/shops/{shop}/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/vendors/{vendor}/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/vendors/{vendor}/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/vendors/{vendor}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/vendors/{vendor}/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/vendors/{vendor}/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
-Route::get('/shops/{shop}/products/{product}', [ProductController::class, 'show'])->name('shops.products.show');
+Route::get('/vendors/{vendor}/products/{product}', [ProductController::class, 'show'])->name('vendors.products.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Businesses') }}
+            {{ __('Vendors') }}
         </h2>
     </x-slot>
 
@@ -10,11 +10,11 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <ul>
-                        @foreach ($shops as $shop)
+                        @foreach ($vendors as $vendor)
                             <li>
-                                <h2>Business Name: {{ $shop->name }} </h2>
-                                <p>Business Description: {{ $shop->description }} </p>
-                                <a href="{{ route('shops.show', $shop->id) }}" class="btn-dark mb-2 block text-center">Visit Store</a>
+                                <h2>Vendor Name: {{ $vendor->name }} </h2>
+                                <p>Vendor Description: {{ $vendor->description }} </p>
+                                <a href="{{ route('vendors.show', $vendor->id) }}" class="btn-dark mb-2 block text-center">Visit Store</a>
                             </li>
                         @endforeach
                     </ul>

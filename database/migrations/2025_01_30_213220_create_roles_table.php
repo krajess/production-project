@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->default(false);
-            $table->boolean('is_business_owner')->default(false);
-            $table->boolean('is_business_manager')->default(false);
+            $table->boolean('is_vendor_owner')->default(false);
+            $table->boolean('is_vendor_manager')->default(false);
             $table->boolean('is_customer')->default(true);
         });
     }
@@ -26,8 +26,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('is_admin');
-            $table->dropColumn('is_business_owner');
-            $table->dropColumn('is_business_manager');
+            $table->dropColumn('is_vendor_owner');
+            $table->dropColumn('is_vendor_manager');
             $table->dropColumn('is_customer');
         });
     }

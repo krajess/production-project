@@ -19,7 +19,7 @@ class CartController extends Controller
     {
         $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
     
-        if ($cart->products()->exists() && $cart->products()->first()->shop_id !== $product->shop_id) {
+        if ($cart->products()->exists() && $cart->products()->first()->vendor_id !== $product->vendor_id) {
             return redirect()->route('cart.index')->with('error', 'You cannot add products from different vendors.');
         }
     

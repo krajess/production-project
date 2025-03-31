@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Business Application - Apply for your business now!') }}
+            {{ __('Vendor Application - Apply for your vendor now!') }}
         </h2>
     </x-slot>
 
@@ -45,20 +45,20 @@
                             <input type="text" name="country" id="country" class="form-input rounded-md shadow-sm mt-1 block w-full" />
                         </div>
                         <div class="mb-4">
-                            <label for="business_name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Name</label>
-                            <input type="text" name="business_name" id="business_name" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                            <label for="vendor_name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Name</label>
+                            <input type="text" name="vendor_name" id="vendor_name" class="form-input rounded-md shadow-sm mt-1 block w-full" />
                         </div>
                         <div class="mb-4">
-                            <label for="business_type" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Type</label>
-                            <input type="text" name="business_type" id="business_type" class="form-input rounded-md shadow-sm mt-1 block w-full" />
+                            <label for="vendor_type" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Type</label>
+                            <input type="text" name="vendor_type" id="vendor_type" class="form-input rounded-md shadow-sm mt-1 block w-full" />
                         </div>
                         <div class="mb-4">
-                            <label for="business_description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Description</label>
-                            <textarea name="business_description" id="business_description" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
+                            <label for="vendor_description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Description</label>
+                            <textarea name="vendor_description" id="vendor_description" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
                         </div>
                         <div class="mb-4">
-                            <label for="business_experience" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Experience</label>
-                            <textarea name="business_experience" id="business_experience" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
+                            <label for="vendor_experience" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Experience</label>
+                            <textarea name="vendor_experience" id="vendor_experience" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
                         </div>
                         <br>
                         <button type="submit" class="btn-dark">Send Application</button>

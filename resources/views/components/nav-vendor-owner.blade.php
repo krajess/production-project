@@ -20,14 +20,17 @@
             <div x-data="{ open: false }" class="w-full">
                 <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Products</button>
                 <div x-show="open" class="mt-2 space-y-2">
-                    @if (auth()->user()->vendors && auth()->user()->vendors->count() > 0)
-                        @foreach (auth()->user()->vendors as $vendor)
-                            <a href="{{ route('products.create', $vendor->id) }}" class="btn-bright block text-center">Add Product</a>
-                        @endforeach
-                    @endif
+                    <a href="{{ route('products.create', $vendor->id) }}" class="btn-bright block text-center">Add Product</a>
+                    <a href="{{ route('products.owner_view', $vendor->id) }}" class="btn-bright block text-center" style="margin-bottom: 8px;" >Manage Products</a>
                 </div>
             </div>
-            <a href="{{ route('vendor_owner.index') }}" class="btn-dark mb-2 block text-center">Overview</a>
+            <div x-data="{ open: false }" class="w-full">
+                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Overview</button>
+                <div x-show="open" class="mt-2 space-y-2">
+                    <a href="{{ route('vendor_owner.index') }}" class="btn-bright block text-center">test</a>
+                    <a href="{{ route('vendor_owner.index') }}" class="btn-bright block text-center">test</a>
+                </div>
+            </div>
         </div>
     </div>
 @endif

@@ -9,6 +9,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -64,17 +65,26 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id, Product $product)
     {
-        //
+        $vendor = Vendor::findOrFail($id);
+        $productTypes = ProductType::all();
+    
+        return view('products.edit', compact('vendor', 'product', 'productTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, $id, Product $product)
     {
-        //
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->save();
+
+        return redirect()->route('products.owner_view', $id)->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -83,5 +93,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function owner_view($id)
+    {
+        $vendor = Vendor::with('products')->findOrFail($id);
+        return view('products.owner_view', compact('vendor'));
     }
 }

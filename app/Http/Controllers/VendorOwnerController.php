@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Stripe\StripeClient;
 
 class VendorOwnerController extends Controller
 {
@@ -32,4 +33,19 @@ class VendorOwnerController extends Controller
 
         return redirect()->route('vendor_owner.index');
     }
+
+    public function connectStripeAcc(Request $request, $id)
+{
+    $vendor = Vendor::findOrFail($id);
+
+    $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+    $account = $stripe->accounts->create([
+        'type' => 'express',
+    ]);
+
+    $vendor->stripe_account_id = $account->id;
+    $vendor->save();
+
+    return redirect()->route('vendor_owner.edit', $id);
+}
 }

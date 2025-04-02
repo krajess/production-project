@@ -1,7 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
-            {{ __('Your Cart') }} {{ $cart->products->count() ? '(' . $cart->products->count() . ' items)' : '' }}
+            {{ __('Your Cart') }} 
+            @if ($cart && $cart->products)
+                ({{ $cart->products->count() }} items)
+            @endif
         </h2>
     </x-slot>
     
@@ -31,8 +34,7 @@
         
         <div class="py-8 w-2/3" style="margin-top: -15px; margin-right: 15px;">
             <div class="w-full">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"> 
                         @if($cart && $cart->products->count())
                         <div class="flex flex-col space-y-6">
                             @foreach($cart->products as $product)

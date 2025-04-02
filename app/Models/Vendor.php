@@ -15,6 +15,7 @@ class Vendor extends Model
         'description2',
         'owner_id',
         'visible',
+        'stripe_account_id',
     ];
 
 

@@ -82,6 +82,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->stock = $request->input('stock');
+        $product->product_types_name = ProductType::find($request->input('product_type_id'))->name;
         $product->save();
 
         return redirect()->route('products.owner_view', $id)->with('success', 'Product updated successfully.');

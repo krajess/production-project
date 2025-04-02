@@ -8,6 +8,5 @@
         <hr class="my-2 border-gray-300 dark:border-gray-600 w-full">
         <p class="text-gray-600 dark:text-gray-400">TOTAL PRICE FOR PRODUCTS</p>
         <hr class="my-2 border-gray-300 dark:border-gray-600 w-full">
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-20 w-full">Checkout</button>
     </div>
 </div>

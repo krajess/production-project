@@ -17,6 +17,13 @@
                         <textarea name="description">{{ old('description', $product->description) }}</textarea>
                         <input type="number" name="price" value="{{ old('price', $product->price) }}">
                         <input type="number" name="stock" value="{{ old('stock', $product->stock) }}">
+                        <select name="product_type_id" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                            @foreach($productTypes as $productType)
+                                <option value="{{ $productType->id }}" {{ $productType->id == $product->productType->id ? 'selected' : '' }}>
+                                    {{ $productType->name }}
+                                </option>
+                            @endforeach
+                        </select>
                         <button type="submit">Update Product</button>
                     </form>
                 </div>

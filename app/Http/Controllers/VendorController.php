@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Stripe\StripeClient;
 
 class VendorController extends Controller
 {
@@ -48,5 +49,33 @@ class VendorController extends Controller
     public function destroy(Vendor $vendor)
     {
         //
+    }
+
+    public function connectStripeAcc($vendorId)
+    {
+        $vendor = Vendor::findOrFail($vendorId);
+
+        $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+
+        $account = $stripe->accounts->create([
+            'type' => 'express',
+        ]);
+
+        $vendor->stripe_account_id = $account->id;
+        $vendor->save();
+
+        $accountLink = $stripe->accountLinks->create([
+            'account' => $account->id,
+            'refresh_url' => route('vendor.stripe.link', $vendor->id),
+            'return_url' => route('vendor.stripe.callback'),
+            'type' => 'account_onboarding',
+        ]);
+
+        return redirect($accountLink->url);
+    }
+
+    public function handleStripeCallback(Request $request)
+    {
+        return redirect()->route('vendor_owner.index');
     }
 }

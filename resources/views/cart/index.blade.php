@@ -83,6 +83,12 @@
                         <p class="text-center">Your cart is empty.</p>
                         @endif
                     </div>
+                    @if ($cart && $cart->products->isNotEmpty())
+                    <form action="{{ route('checkout.create', ['vendor' => $product->vendor->id, 'product' => $product->id]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded m-2">Buy Now</button>
+                    </form>
+                @endif
                 </div>
             </div>
         </div>

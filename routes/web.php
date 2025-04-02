@@ -8,6 +8,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,5 +59,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/checkout/{vendor}/{product}', [CheckoutController::class, 'create'])->name('checkout.create');
+Route::get('/vendor/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
+Route::get('/vendor/stripe/callback', [VendorController::class, 'handleStripeCallback'])->name('vendor.stripe.callback');
+
+Route::get('/checkout/success', function () {
+    return view('checkout.success');
+})->name('checkout.success');
+
+Route::get('/checkout/fail', function () {
+    return view('checkout.fail');
+})->name('checkout.fail');
 
 require __DIR__.'/auth.php';

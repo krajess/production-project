@@ -12,7 +12,11 @@
                     <form action="{{ route('products.update', ['vendor' => $vendor->id, 'product' => $product->id]) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                    
+
+                        <div class="mb-4">
+                            <label for="images" class="block text-sm font-medium text-gray-700">Upload Images</label>
+                            <input type="file" name="images[]" id="images" multiple class="form-input w-full mt-1" accept="image/*">
+                        </div>
                         <input type="text" name="name" value="{{ old('name', $product->name) }}">
                         <textarea name="description">{{ old('description', $product->description) }}</textarea>
                         <input type="number" name="price" value="{{ old('price', $product->price) }}">

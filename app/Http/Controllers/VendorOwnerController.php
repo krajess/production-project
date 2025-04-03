@@ -23,8 +23,6 @@ class VendorOwnerController extends Controller
     {
         $vendor = Vendor::findOrFail($id);
 
-        $vendor->visible = $request->has('visible') ? 1 : 0;
-
         $vendor->name = $request->input('name');
         $vendor->description = $request->input('description');
         $vendor->description2 = $request->input('description2');

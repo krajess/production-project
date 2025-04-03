@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,6 +37,11 @@ class ProductController extends Controller
      */
     public function store(Request $request, $vendorID)
     {
+
+        $request->validate([
+            'products.*.images' => 'array|max:5',
+        ]);
+
         $vendor = Vendor::find($vendorID);
         $products = $request->input('products');
 
@@ -48,6 +54,18 @@ class ProductController extends Controller
             $product->stock = $productData['stock'];
             $productType = ProductType::find($productData['product_type_id']);
             $product->product_types_name = $productType ? $productType->name : null;
+
+            if ($request->hasFile('images')) {
+                $images = [];
+                foreach ($request->file('images') as $image) {
+                    $path = $image->store('products', 'public');
+                    $images[] = $path;
+                }
+                $product->images = $images;
+            } else {
+                $product->images = [];
+            }
+
             $product->save();
         }
 
@@ -78,11 +96,26 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, $id, Product $product)
     {
+
+        $request->validate([
+            'images' => 'array|max:5',
+        ]);
+
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->stock = $request->input('stock');
         $product->product_types_name = ProductType::find($request->input('product_type_id'))->name;
+
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
+                $images[] = $path;
+            }
+            $product->images = $images;
+        }
+
         $product->save();
 
         return redirect()->route('products.owner_view', $id)->with('success', 'Product updated successfully.');

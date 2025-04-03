@@ -17,6 +17,10 @@ class Product extends Model
         'product_types_name',
     ];
 
+    protected $casts = [
+        'images' => 'array',
+    ];
+
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);

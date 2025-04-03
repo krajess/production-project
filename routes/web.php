@@ -38,7 +38,10 @@ Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
     Route::get('/vendor_dashboard/{vendor}/products', [ProductController::class, 'owner_view'])->name('products.owner_view');
     Route::get('/vendor_dashboard/{vendor}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::patch('/vendor_dashboard/{vendor}/products/{product}', [ProductController::class, 'update'])->name('products.update');
+
+    Route::get('/vendor/{vendor}/preview', [VendorController::class, 'preview'])->name('vendor_owner.preview');
 });
+
 Route::get('/vendors/{vendor}/products/{product}', [ProductController::class, 'show'])->name('vendors.products.show');
 
 Route::middleware('auth')->group(function () {

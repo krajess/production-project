@@ -27,7 +27,9 @@
             <div x-data="{ open: false }" class="w-full">
                 <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Overview</button>
                 <div x-show="open" class="mt-2 space-y-2">
-                    <a href="{{ route('vendor_owner.index') }}" class="btn-bright block text-center">test</a>
+                    @if (auth()->id() === $vendor->owner_id)
+                        <a href="{{ route('vendor_owner.preview', $vendor->id) }}" class="btn-bright block text-center">Preview Vendor</a>
+                    @endif
                     <a href="{{ route('vendor_owner.index') }}" class="btn-bright block text-center">test</a>
                 </div>
             </div>

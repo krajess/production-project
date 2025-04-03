@@ -22,25 +22,48 @@
                 </div>
             @else
                 @foreach($vendor->products as $product)
-                    <div class="border rounded-lg p-4 flex flex-col bg-white shadow-md m-2" style="flex: 1 1 calc(33.33% - 2rem); max-width: calc(33.33% - 2rem); box-sizing: border-box; margin: 1rem;">
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover mb-4 rounded">
+                    <div class="border rounded-lg p-2 flex flex-col bg-white shadow-md m-1" style="flex: 1 1 calc(20% - 0.5rem); max-width: calc(20% - 0.5rem); box-sizing: border-box; margin-top: 15px;">
+                        <div class="relative" style="height: 200px; overflow: hidden;">
+                            @if (!empty($product->images) && is_array($product->images))
+                                <img id="mainImage-{{ $product->id }}" 
+                                     src="{{ asset('storage/' . $product->images[0]) }}" 
+                                     alt="{{ $product->name }}" 
+                                     class="w-full h-full object-contain mb-4 rounded">
+                            @else
+                                <img id="mainImage-{{ $product->id }}" 
+                                     src="{{ asset('placeholder.png') }}" 
+                                     alt="{{ $product->name }}" 
+                                     class="w-full h-full object-contain mb-4 rounded">
+                            @endif
+                        </div>
+                        
+                        @if (!empty($product->images) && is_array($product->images))
+                            <div class="flex mt-2 space-x-2">
+                                @foreach ($product->images as $image)
+                                    <img src="{{ asset('storage/' . $image) }}" 
+                                         alt="Thumbnail" 
+                                         class="w-12 h-12 object-contain rounded cursor-pointer" 
+                                         onclick="document.getElementById('mainImage-{{ $product->id }}').src='{{ asset('storage/' . $image) }}'">
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="flex flex-col w-full">
                             <div class="flex justify-between items-center mb-1">
-                                <p class="font-bold text-md">{{ $product->name }}</p>
-                                <p class="bg-blue-200 text-black px-2 mr-2 rounded border border-black">{{ $product->product_types_name }}</p>
+                                <p class="font-bold" style="font-size: 20px;">{{ $product->name }}</p>
+                                <p class="bg-blue-200 text-black px-2 mr-2 rounded border border-black" style="font-size: 11px;">{{ $product->product_types_name }}</p>
                             </div>
                             <p class="text-gray-700 mb-1">{{ $product->description }}</p>
                             <p class="text-green-500 font-semibold mb-3">&pound {{ number_format($product->price, 2) }}</p>
                             @if ($product->stock == 0)
-                                <p class="text-red-500 font-semibold mb-3">Out of stock - 0 available</p>
+                                <p class="text-red-500 font-semibold mb-3" style="font-size: 13px;">Out of stock</p>
                                     <button class="bg-gray-300 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;" disabled>Purchase</button>
                                     <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @elseif ($product->stock < 10)
-                                <p class="text-orange-300 font-semibold mb-3">Low in stock - {{ $product->stock }} available</p>
+                                <p class="text-orange-300 font-semibold mb-3" style="font-size: 13px;">Low in stock - {{ $product->stock }} available</p>
                                     <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
                                     <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @else
-                                <p class="text-black-700 mb-3">In stock - 10+ vailable</p>
+                                <p class="text-black-700 mb-3" style="font-size: 13px;">In stock - 10+ available</p>
                                     <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
                                     <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @endif

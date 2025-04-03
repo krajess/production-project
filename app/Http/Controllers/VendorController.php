@@ -78,4 +78,15 @@ class VendorController extends Controller
     {
         return redirect()->route('vendor_owner.index');
     }
+
+    public function preview($id)
+    {
+        $vendor = Vendor::findOrFail($id);
+
+        if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('vendor_owner.preview', compact('vendor'));
+    }
 }

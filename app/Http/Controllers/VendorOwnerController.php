@@ -25,7 +25,6 @@ class VendorOwnerController extends Controller
 
         $vendor->name = $request->input('name');
         $vendor->description = $request->input('description');
-        $vendor->description2 = $request->input('description2');
 
         $vendor->save();
 

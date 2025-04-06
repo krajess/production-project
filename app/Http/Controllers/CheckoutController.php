@@ -24,7 +24,7 @@ class CheckoutController extends Controller
         foreach ($cart->products as $product) {
             $lineItems[] = [
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'gbp',
                     'product_data' => [
                         'name' => $product->name,
                         'description' => $product->description,

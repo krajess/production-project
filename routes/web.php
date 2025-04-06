@@ -44,6 +44,8 @@ Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
 
 Route::get('/vendors/{vendor}/products/{product}', [ProductController::class, 'show'])->name('vendors.products.show');
 
+Route::get('/vendors/{vendor}/search', [ProductController::class, 'search'])->name('vendors.products.search');
+
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');

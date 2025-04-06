@@ -17,10 +17,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $vendor = Vendor::with('products')->findOrFail($id);
+
+        if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('products.show_products', compact('vendor'));
     }
+
 
     /**
      * Show the form for creating a new resource.

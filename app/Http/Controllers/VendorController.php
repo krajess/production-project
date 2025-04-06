@@ -25,15 +25,9 @@ class VendorController extends Controller
         //
     }
 
-    public function show($id)
+    public function show()
     {
-        $vendor = Vendor::with('products')->findOrFail($id);
-
-        if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
-            abort(403, 'Unauthorized access');
-        }
-
-        return view('vendors.show', compact('vendor'));
+        //
     }
 
     public function edit(Vendor $vendor)

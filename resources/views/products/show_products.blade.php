@@ -6,11 +6,11 @@
     </x-slot>
 
     <div class="flex">
-        <x-nav-filter-menu>
-        </x-nav-filter-menu>
-        
-        <div class="flex flex-wrap justify-start w-full">
-            @if($vendor->products->isEmpty())
+            <x-nav-filter-menu :vendor="$vendor">
+            </x-nav-filter-menu>
+
+        <div class="flex flex-wrap justify-start w-3/4">
+            @if($products->isEmpty())
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -21,8 +21,9 @@
                     </div>
                 </div>
             @else
-                @foreach($vendor->products as $product)
-                    <div class="border rounded-lg p-2 flex flex-col bg-white shadow-md m-1" style="flex: 1 1 calc(20% - 0.5rem); max-width: calc(20% - 0.5rem); box-sizing: border-box; margin-top: 15px;">
+                @foreach($products as $product)
+                    <div class="border rounded-lg p-2 flex flex-col bg-white shadow-m m-1" 
+                        style="flex: 1 1 calc(25% - 0.5rem); max-width: calc(25% - 0.5rem); box-sizing: border-box; margin-top: 15px;">
                         <div class="relative" style="height: 200px; overflow: hidden;">
                             @if (!empty($product->images) && is_array($product->images))
                                 <img id="mainImage-{{ $product->id }}" 
@@ -70,10 +71,14 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="mt-4 p-4">
+                    {{ $products->appends(['query' => request('query')])->links() }}
+                </div>
             @endif
         </div>
     </div>
 </x-app-layout>
+
 
 <style>
     input[type=number]::-webkit-outer-spin-button,

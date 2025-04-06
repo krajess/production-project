@@ -17,15 +17,22 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
         $vendor = Vendor::with('products')->findOrFail($id);
-
+    
         if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
             abort(403, 'Unauthorized access');
         }
-
-        return view('products.show_products', compact('vendor'));
+    
+        $query = $request->input('query');
+        $products = $vendor->products()
+            ->when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%' . $query . '%');
+            })
+            ->paginate(20);
+    
+        return view('products.show_products', compact('vendor', 'products'));
     }
 
 
@@ -140,5 +147,17 @@ class ProductController extends Controller
     {
         $vendor = Vendor::with('products')->findOrFail($id);
         return view('products.owner_view', compact('vendor'));
+    }
+
+    public function search(Request $request, Vendor $vendor)
+    {
+        $query = $request->input('query');
+    
+        $products = $vendor->products()
+            ->where('name', 'LIKE', '%' . $query . '%')
+            ->paginate(20);
+
+    
+        return view('products.show_products', compact('vendor', 'products'));
     }
 }

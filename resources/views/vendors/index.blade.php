@@ -18,7 +18,7 @@
                                 <p class="text-gray-700 dark:text-gray-300" style="font-size: 20px;">Email:</p>
                                 <p class="text-gray-700 dark:text-gray-300" style="font-size: 20px;">Reviews: </p>
                                 <div class="text-right">
-                                    <a href="{{ route('vendors.show', $vendor->id) }}" class="btn-dark">Visit Store -></a>
+                                    <a href="{{ route('products.show_products', $vendor->id) }}" class="btn-dark">Visit Store -></a>
                                 </div>
                             </li>
                         @endforeach

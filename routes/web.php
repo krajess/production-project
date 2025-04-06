@@ -15,7 +15,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
-Route::get('/vendors/{vendor}', [VendorController::class, 'show'])->name('vendors.show');
+Route::get('/vendors/{vendor}', [ProductController::class, 'index'])->name('products.show_products');
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

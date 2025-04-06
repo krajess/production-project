@@ -60,7 +60,7 @@
                                         </form>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('vendors.show', $vendor->id) }}" class="btn-dark">View</a>
+                                        <a href="{{ route('products.show_products', $vendor->id) }}" class="btn-dark">View</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -9,6 +9,7 @@ use App\Models\Vendor;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Models\Product;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.navigation', function ($view) {
             $appSent = Application::where('user_id', Auth::id())->exists();
             $view->with('appSent', $appSent);
+        });
+
+        Gate::define('delete-product', function (User $user, Product $product) {
+            return $user->is_admin || $user->id === $product->vendor->owner_id;
         });
     }
 }

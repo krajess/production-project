@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="flex">
-        <x-nav-filter-menu>
+        <x-nav-filter-menu  :vendor="$vendor">
         </x-nav-filter-menu>
         
         <div class="flex flex-wrap justify-start w-full">

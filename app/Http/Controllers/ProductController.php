@@ -132,7 +132,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.owner_view', $id)->with('success', 'Product updated successfully.');
+        return redirect()->route('products.manage_products', $id)->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -148,16 +148,16 @@ class ProductController extends Controller
 
         $product->delete();
     
-        return redirect()->route('products.owner_view', $vendorID);
+        return redirect()->route('products.manage_products', $vendorID);
     }
 
-    public function owner_view($id)
+    public function manage_products($id)
     {
         $vendor = Vendor::with('products')->findOrFail($id);
     
         $products = $vendor->products()->paginate(20);
     
-        return view('products.owner_view', compact('vendor', 'products'));
+        return view('products.manage_products', compact('vendor', 'products'));
     }
 
     public function search(Request $request, Vendor $vendor)

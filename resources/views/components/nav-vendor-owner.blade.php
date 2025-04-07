@@ -21,7 +21,7 @@
                 <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Products</button>
                 <div x-show="open" class="mt-2 space-y-2">
                     <a href="{{ route('products.create', $vendor->id) }}" class="btn-bright block text-center">Add Product</a>
-                    <a href="{{ route('products.owner_view', $vendor->id) }}" class="btn-bright block text-center" style="margin-bottom: 8px;" >Manage Products</a>
+                    <a href="{{ route('products.manage_products', $vendor->id) }}" class="btn-bright block text-center" style="margin-bottom: 8px;" >Manage Products</a>
                 </div>
             </div>
             <div x-data="{ open: false }" class="w-full">

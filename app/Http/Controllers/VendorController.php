@@ -81,6 +81,8 @@ class VendorController extends Controller
             abort(403, 'Unauthorized access');
         }
 
-        return view('vendor_owner.preview', compact('vendor'));
+        $products = $vendor->products()->paginate(20);
+
+        return view('vendor_owner.preview', compact('vendor', 'products'));
     }
 }

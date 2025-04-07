@@ -39,10 +39,24 @@
                         <div class="flex flex-col space-y-6">
                             @foreach($cart->products as $product)
                             <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
-                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full md:w-48 h-48 object-cover">
+                                <div class="relative" style="height: 200px; width: 200px; overflow: hidden; margin: 10px;">
+                                    @if (!empty($product->images) && is_array($product->images))
+                                        <img id="mainImage-{{ $product->id }}" 
+                                             src="{{ asset('storage/' . $product->images[0]) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="object-cover rounded"
+                                             style="width: 100%; height: 100%;">
+                                    @else
+                                        <img id="mainImage-{{ $product->id }}" 
+                                             src="{{ asset('placeholder.png') }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="object-cover rounded"
+                                             style="width: 100%; height: 100%;">
+                                    @endif
+                                </div>
                                 <div class="p-4 flex flex-col justify-between">
                                     <div>
-                                        <h1 style="font-size: 22px; font-weight: bold; margin-top: -20px;">{{ $product->name }}</h1>
+                                        <h1 style="font-size: 22px; font-weight: bold;">{{ $product->name }}</h1>
                                         <p class="text-green-800 text-lg font-bold mt-4 mb-2">&pound;{{ number_format($product->price, 2) }}</p>
                                         <p class="text-gray-600 text-sm dark:text-gray-400">Total: &pound;{{ number_format($product->price * $product->pivot->quantity, 2) }}</p>
                                         <p class="text-gray-600 text-sm dark:text-gray-400">Qty: {{ $product->pivot->quantity }}</p>
@@ -146,4 +160,4 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
-<style>
+</style>

@@ -85,4 +85,23 @@ class VendorController extends Controller
 
         return view('vendor_owner.preview', compact('vendor', 'products'));
     }
+
+    public function stripe_dashboard($vendorId)
+    {
+        $vendor = Vendor::findOrFail($vendorId);
+        
+        if (\Illuminate\Support\Facades\Auth::user()->id !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access');
+        }
+
+        if (!$vendor->stripe_account_id) {
+            return redirect()->back();
+        }
+
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+
+        $loginLink = $stripe->accounts->createLoginLink($vendor->stripe_account_id);
+
+        return redirect($loginLink->url);
+    }
 }

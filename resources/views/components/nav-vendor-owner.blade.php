@@ -30,7 +30,7 @@
                     @if (auth()->id() === $vendor->owner_id)
                         <a href="{{ route('vendor_owner.preview', $vendor->id) }}" class="btn-bright block text-center">Preview Vendor</a>
                     @endif
-                    <a href="{{ route('vendor_owner.index') }}" class="btn-bright block text-center">test</a>
+                    <a href="{{ route('vendor.stripe.dashboard', $vendor->id) }}" class="btn-bright block text-center">View Stripe Dashboard</a>
                 </div>
             </div>
         </div>

@@ -138,15 +138,26 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($vendorID, Product $product)
     {
-        //
+        $vendor = $product->vendor;
+    
+        if (!Gate::allows('delete-product', $product)) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $product->delete();
+    
+        return redirect()->route('products.owner_view', $vendorID);
     }
 
     public function owner_view($id)
     {
         $vendor = Vendor::with('products')->findOrFail($id);
-        return view('products.owner_view', compact('vendor'));
+    
+        $products = $vendor->products()->paginate(20);
+    
+        return view('products.owner_view', compact('vendor', 'products'));
     }
 
     public function search(Request $request, Vendor $vendor)

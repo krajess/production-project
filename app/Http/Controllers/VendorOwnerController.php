@@ -25,6 +25,11 @@ class VendorOwnerController extends Controller
 
         $vendor->name = $request->input('name');
         $vendor->description = $request->input('description');
+        $vendor->background_color = $request->input('background_color', '#ffffff');
+        $vendor->text_color = $request->input('text_color', '#000000');
+        $vendor->description_text_color = $request->input('description_text_color', '#000000');
+        $vendor->button_text_color = $request->input('button_text_color', '#ffffff');
+        $vendor->button_background_color = $request->input('button_background_color', '#000000');
 
         $vendor->save();
 

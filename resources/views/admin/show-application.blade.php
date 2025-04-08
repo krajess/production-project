@@ -16,6 +16,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
                     <h1>{{ $application->first_name }} {{ $application->last_name }}</h1>
+                    <p>DOB: {{ $application->dob }}</p>
                     <p>Email: {{ $application->email }}</p>
                     <p>Phone: {{ $application->phone }}</p>
                     <p>Address: {{ $application->address }}</p>
@@ -26,6 +27,7 @@
                     <p>Vendor Type: {{ $application->vendor_type }}</p>
                     <p>Vendor Description: {{ $application->vendor_description }}</p>
                     <p>Vendor Experience: {{ $application->vendor_experience }}</p>
+                    <p>Terms and Conditions: {{ $application->terms_conditions ? 'Accepted' : 'Not Accepted' }}</p>
                     <br>
                 </div>
             </div>

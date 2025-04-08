@@ -27,18 +27,20 @@ class ApplicationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'dob' => 'required|date_format:Y-m-d',
             'email' => 'required|string|email|max:255',
             'phone' => 'required|digits_between:5,15',
-            'address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
+            'address' => 'required|string|max:50',
+            'city' => 'required|string|max:50',
             'postcode' => 'required|string|max:10',
-            'country' => 'required|string|max:255',
-            'vendor_name' => 'required|string|max:255',
-            'vendor_type' => 'required|string|max:255',
+            'country' => 'required|string|max:50',
+            'vendor_name' => 'required|string|max:30',
+            'vendor_type' => 'required|string|max:250',
             'vendor_description' => 'required|string|max:1000',
             'vendor_experience' => 'required|string|max:1000',
+            'terms_conditions' => 'required|accepted',
         ]);
         
         $application = new Application($request->all());

@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('ADMIN DASHBOARD - Applications') }}
+        <h2 class="font-semibold text-xl text-center text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('ADMIN MANAGEMENT - APPLICATION VIEW - ') }}
+            {{ __($application->vendor_name) }}
         </h2>
     </x-slot>
 

@@ -14,19 +14,52 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h2 class="text-center font-bold mb-4">Edit Vendor</h2>
+                        <h2 class="text-center font-bold mb-4">Update Vendor Information</h2>
                         <form action="{{ route('vendor_owner.update', $vendor->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Name</label>
                                 <input type="text" name="name" id="name" value="{{ $vendor->name }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>
                             </div>
                             <div class="mb-4">
-                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description in vendors</label>
+                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Description</label>
                                 <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>{{ $vendor->description }}</textarea>
                             </div>
-                            <button type="submit" class="btn-dark mt-2">Update</button>
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Contact Email</label>
+                                <input type="email" name="email" id="email" value="{{ $vendor->email }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>
+                            </div>
+                            <div class="mb-4">
+                                <h2> Vendor View Settings</h2>
+                                <p class="text-sm text-gray-500">These settings will affect how your vendor page looks.</p>
+                            </div>
+                            <div class="mb-4">
+                                <label for="background_color" class="block text-sm font-medium text-gray-700">Background Colour</label>
+                                <input type="color" id="background_color" name="background_color" value="{{ $vendor->background_color ?? '#ffffff' }}" class="mt-1 block w-full">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="text_color" class="block text-sm font-medium text-gray-700">Business Name Colour</label>
+                                <input type="color" id="text_color" name="text_color" value="{{ $vendor->text_color ?? '#000000' }}" class="mt-1 block w-full">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="description_text_color" class="block text-sm font-medium text-gray-700">Business Description Colour</label>
+                                <input type="color" id="description_text_color" name="description_text_color" value="{{ $vendor->description_text_color ?? '#000000' }}" class="mt-1 block w-full">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="button_text_color" class="block text-sm font-medium text-gray-700">View Vendor Button Text Colour</label>
+                                <input type="color" id="button_text_color" name="button_text_color" value="{{ $vendor->button_text_color ?? '#ffffff' }}" class="mt-1 block w-full">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="button_background_color" class="block text-sm font-medium text-gray-700">View Vendor Button Background Colour</label>
+                                <input type="color" id="button_background_color" name="button_background_color" value="{{ $vendor->button_background_color ?? '#007bff' }}" class="mt-1 block w-full">
+                            </div>
+
+                            <button type="submit" class="btn-dark mt-2">UPDATE DETAILS</button>
                         </form>
                     </div>
                 </div>

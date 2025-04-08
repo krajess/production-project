@@ -14,7 +14,7 @@
                         <li class="mb-6 p-4 rounded-lg"
                             style="background-color: {{ $vendor->background_color ?? '#ffffff' }};
                                    color: {{ $vendor->text_color ?? '#000000' }};
-                                   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);">
+                                   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3), 0 -6px 8px rgba(0, 0, 0, 0.3);">
                             <h2 class="font-bold text-center m-2" style="font-size: 30px;">{{ $vendor->name }}</h2>
                             <p class="text-center" style="font-size: 18px; color: {{ $vendor->description_text_color ?? '#000000' }};">
                                 {!! nl2br(e($vendor->description)) !!}

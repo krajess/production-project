@@ -13,8 +13,14 @@ class Vendor extends Model
         'name',
         'description',
         'owner_id',
+        'email',
         'visible',
         'stripe_account_id',
+        'background_color',
+        'text_color',
+        'description_text_color',
+        'button_text_color',
+        'button_background_color',
     ];
 
 

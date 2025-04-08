@@ -19,16 +19,16 @@
                             @csrf
                             @method('PATCH')
                             <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Name</label>
-                                <input type="text" name="name" id="name" value="{{ $vendor->name }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Name</label>
+                                <input type="text" name="name" id="name" value="{{ $vendor->name }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" maxlength="30" required>
                             </div>
                             <div class="mb-4">
-                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Business Description</label>
-                                <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>{{ $vendor->description }}</textarea>
+                                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Description</label>
+                                <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" maxlength="1000" required>{{ $vendor->description }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Contact Email</label>
-                                <input type="email" name="email" id="email" value="{{ $vendor->email }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" required>
+                                <input type="email" name="email" id="email" value="{{ $vendor->email }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" maxlength="250" required>
                             </div>
                             <div class="mb-4">
                                 <h2> Vendor View Settings</h2>

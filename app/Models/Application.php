@@ -12,6 +12,7 @@ class Application extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'dob',
         'email',
         'phone',
         'address',
@@ -22,6 +23,7 @@ class Application extends Model
         'vendor_type',
         'vendor_description',
         'vendor_experience',
+        'terms_conditions',
     ];
 
     public function user()

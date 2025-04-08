@@ -20,6 +20,7 @@ class ApplicationSeeder extends Seeder
                 'status' => 'new',
                 'first_name' => 'user',
                 'last_name' => 'user',
+                'dob' => '1990-01-01',
                 'email' => 'user@example.com',
                 'phone' => '123456789',
                 'address' => 'user address',
@@ -30,12 +31,14 @@ class ApplicationSeeder extends Seeder
                 'vendor_description' => 'User Trading Ltd. description',
                 'vendor_type' => 'Trading',
                 'vendor_experience' => '5 years',
+                'terms_conditions' => true,
             ],
             [
                 'user_id' => 2,
                 'status' => 'new',
                 'first_name' => 'owner',
                 'last_name' => 'owner',
+                'dob' => '1985-01-01',
                 'email' => 'owner@example.com',
                 'phone' => '376456789',
                 'address' => 'owner address',
@@ -46,6 +49,7 @@ class ApplicationSeeder extends Seeder
                 'vendor_description' => 'Owner Trading Ltd. description',
                 'vendor_type' => 'Trading',
                 'vendor_experience' => '2 years',
+                'terms_conditions' => true,
             ],
         ]);
     }

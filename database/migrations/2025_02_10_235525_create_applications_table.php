@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->string('first_name');
             $table->string('last_name');
+            $table->date('dob');
             $table->string('email');
             $table->string('phone');
             $table->string('address');
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->string('vendor_type');
             $table->string('vendor_description');
             $table->string('vendor_experience');
+            $table->boolean('terms_conditions')->default(false);
             $table->timestamps();
         });
     }

@@ -127,6 +127,7 @@ class ProductController extends Controller
                 $path = $image->store('products', 'public');
                 $images[] = $path;
             }
+            
             $product->images = $images;
         }
 
@@ -170,5 +171,22 @@ class ProductController extends Controller
 
     
         return view('products.show_products', compact('vendor', 'products'));
+    }
+
+    public function remove_images($vendorId, $productId)
+    {
+        $product = Product::findOrFail($productId);
+    
+        if (is_array($product->images)) {
+            foreach ($product->images as $imagePath) {
+                Storage::delete($imagePath);
+            }
+        }
+    
+        $product->images = [];
+        $product->save();
+    
+        return redirect()->route('products.edit', ['vendor' => $vendorId, 'product' => $productId])
+                         ->with('success', 'All images have been removed successfully.');
     }
 }

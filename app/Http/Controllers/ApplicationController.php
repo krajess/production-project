@@ -88,6 +88,7 @@ class ApplicationController extends Controller
                 'name' => $application->vendor_name,
                 'description' => $application->vendor_description,
                 'owner_id' => $user->id,
+                'email' => $application->email,
             ]);
         }
     

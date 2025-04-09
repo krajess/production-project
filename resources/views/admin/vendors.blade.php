@@ -30,6 +30,9 @@
                                     Owner Email
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
+                                    Stripe
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
                                     Visible
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 text-center dark:text-gray-400 uppercase tracking-wider">
@@ -39,30 +42,39 @@
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach ($vendors as $vendor)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $vendor->name }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $vendor->description }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $vendor->owner_id }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $vendor->owner->email }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="{{ route('admin.vendors.VendorVisible', $vendor->id) }}" method="POST">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="checkbox" name="visible" {{ $vendor->visible ? 'checked' : '' }} onchange="this.form.submit()">
-                                        </form>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('products.show_products', $vendor->id) }}" class="btn-dark">View</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $vendor->name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $vendor->description }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $vendor->owner_id }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $vendor->owner->email }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if (empty($vendor->stripe_account_id))
+                                        <span>No connected</span>
+                                    @else
+                                        {{ $vendor->stripe_account_id }}
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <form action="{{ route('admin.vendors.VendorVisible', $vendor->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="checkbox" name="visible" {{ $vendor->visible ? 'checked' : '' }} 
+                                            {{ empty($vendor->stripe_account_id) ? 'disabled' : '' }} 
+                                            onchange="this.form.submit()">
+                                    </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="{{ route('products.show_products', $vendor->id) }}" class="btn-dark">View</a>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

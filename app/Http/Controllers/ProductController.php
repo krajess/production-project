@@ -11,6 +11,7 @@ use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -42,6 +43,11 @@ class ProductController extends Controller
     public function create($vendorID)
     {
         $vendor = Vendor::find($vendorID);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $productTypes = ProductType::all();
         return view('products.create', compact('vendor', 'productTypes'));
     }
@@ -100,6 +106,11 @@ class ProductController extends Controller
     public function edit($id, Product $product)
     {
         $vendor = Vendor::findOrFail($id);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $productTypes = ProductType::all();
     
         return view('products.edit', compact('vendor', 'product', 'productTypes'));
@@ -155,6 +166,10 @@ class ProductController extends Controller
     public function manage_products($id)
     {
         $vendor = Vendor::with('products')->findOrFail($id);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
     
         $products = $vendor->products()->paginate(20);
     

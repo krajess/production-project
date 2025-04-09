@@ -17,12 +17,21 @@ class VendorOwnerController extends Controller
     public function edit($id)
     {
         $vendor = Vendor::findOrFail($id);
+    
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
+    
         return view('vendor_owner.edit', compact('vendor'));
     }
 
     public function update(Request $request, $id)
     {
         $vendor = Vendor::findOrFail($id);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
 
         $vendor->name = $request->input('name');
         $vendor->description = $request->input('description');

@@ -48,23 +48,28 @@ class VendorController extends Controller
     public function connectStripeAcc($vendorId)
     {
         $vendor = Vendor::findOrFail($vendorId);
-
+    
+        if (!empty($vendor->stripe_account_id)) {
+            return redirect()->route('vendor_owner.edit', $vendorId)
+                ->with('error', 'Stripe account is already connected.');
+        }
+    
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-
+    
         $account = $stripe->accounts->create([
             'type' => 'express',
         ]);
-
+    
         $vendor->stripe_account_id = $account->id;
         $vendor->save();
-
+    
         $accountLink = $stripe->accountLinks->create([
             'account' => $account->id,
             'refresh_url' => route('vendor.stripe.link', $vendor->id),
             'return_url' => route('vendor.stripe.callback'),
             'type' => 'account_onboarding',
         ]);
-
+    
         return redirect($accountLink->url);
     }
 

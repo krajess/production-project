@@ -38,8 +38,8 @@
                             <button> <a href="{{ route('applications.create') }}" class="btn-dark">Re-Apply for your online store</a> </button>
                         @elseif($application->status == 'accepted')
                             <p> Status of your application is - APPROVED </p>
-                            <p> Your application has been approved. You can now start adding your products. </p>
-                            <p> To manage your vendor, click email and go to Vendor Dashboard.
+                            <p> Your application has been approved. </p>
+                            <p> Next step is connect your vendor to Stripe  Account. </p>
                         @endif
                     </div>
                 </div>

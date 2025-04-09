@@ -46,6 +46,8 @@ Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
     Route::get('/vendor/{vendor}/stripe/dashboard', [VendorController::class, 'stripe_dashboard'])->name('vendor.stripe.dashboard');
 
     Route::delete('/vendor_dashboard/{vendor}/products/{product}/images', [ProductController::class, 'remove_images'])->name('products.remove_images');
+
+    Route::get('/vendor_dashboard/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
 });
 
 Route::get('/vendors/{vendor}/products/{product}', [ProductController::class, 'show'])->name('vendors.products.show');
@@ -72,7 +74,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/checkout/{vendor}/{product}', [CheckoutController::class, 'create'])->name('checkout.create');
-Route::get('/vendor/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
 Route::get('/vendor/stripe/callback', [VendorController::class, 'handleStripeCallback'])->name('vendor.stripe.callback');
 
 Route::get('/checkout/success', function () {

@@ -6,6 +6,7 @@ use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Stripe\StripeClient;
+use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
 {
@@ -81,6 +82,10 @@ class VendorController extends Controller
     public function preview($id)
     {
         $vendor = Vendor::findOrFail($id);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
 
         if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
             abort(403, 'Unauthorized access');

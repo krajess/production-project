@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Stripe\StripeClient;
+use Illuminate\Support\Facades\Auth;
 
 class VendorOwnerController extends Controller
 {
@@ -37,8 +38,16 @@ class VendorOwnerController extends Controller
     }
 
     public function connectStripeAcc(Request $request, $id)
-{
+    {
     $vendor = Vendor::findOrFail($id);
+
+    if (Auth::user()->id !== $vendor->owner_id) {
+        abort(403, 'Unauthorized access.');
+    }
+
+    if (!empty($vendor->stripe_account_id)) {
+        return redirect()->route('vendor_dashboard')->with('error', 'Your Stripe account is already connected.');
+    }
 
     $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
     $account = $stripe->accounts->create([

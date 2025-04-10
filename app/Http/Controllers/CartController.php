@@ -24,12 +24,19 @@ class CartController extends Controller
         }
     
         $existingProduct = $cart->products()->where('product_id', $product->id)->first();
+        $requestedQuantity = $request->input('quantity', 1);
+    
+        $currentQuantity = $existingProduct ? $existingProduct->pivot->quantity : 0;
+        $newTotalQuantity = $currentQuantity + $requestedQuantity;
+    
+        if ($newTotalQuantity > $product->stock) {
+            return redirect()->route('cart.index')->with('error', 'You cannot add more than ' . $product->stock . ' of this product.');
+        }
     
         if ($existingProduct) {
-            $newQuantity = $existingProduct->pivot->quantity + $request->input('quantity', 1);
-            $cart->products()->updateExistingPivot($product->id, ['quantity' => $newQuantity]);
+            $cart->products()->updateExistingPivot($product->id, ['quantity' => $newTotalQuantity]);
         } else {
-            $cart->products()->attach($product->id, ['quantity' => $request->input('quantity', 1)]);
+            $cart->products()->attach($product->id, ['quantity' => $requestedQuantity]);
         }
     
         return redirect()->route('cart.index')->with('success', 'Product successfully added to cart.');

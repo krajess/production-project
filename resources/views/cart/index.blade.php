@@ -94,7 +94,7 @@
                             @endforeach
                         </div>
                         @else
-                        <p class="text-center">Your cart is empty.</p>
+                        <p class="text-center py-4">Your cart is empty.</p>
                         @endif
                     </div>
                     @if ($cart && $cart->products->isNotEmpty())

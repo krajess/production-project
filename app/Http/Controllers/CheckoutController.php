@@ -87,6 +87,7 @@ class CheckoutController extends Controller
         session()->forget('checkout_token');
     
         return view('checkout.success', [
+            'order' => $order,
             'products' => $purchaseDetails['products'],
             'vendor' => $purchaseDetails['vendor'],
         ]);

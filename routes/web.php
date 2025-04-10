@@ -76,9 +76,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/checkout/{vendor}/{product}', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::get('/vendor/stripe/callback', [VendorController::class, 'handleStripeCallback'])->name('vendor.stripe.callback');
 
-Route::get('/checkout/success', function () {
-    return view('checkout.success');
-})->name('checkout.success');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::get('/checkout/fail', function () {
     return view('checkout.fail');

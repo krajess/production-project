@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Stripe\StripeClient;
-use App\Models\Vendor;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
@@ -29,22 +27,68 @@ class CheckoutController extends Controller
                         'name' => $product->name,
                         'description' => $product->description,
                     ],
-                    'unit_amount' => $product->price * 100
+                    'unit_amount' => $product->price * 100,
                 ],
                 'quantity' => $product->pivot->quantity,
             ];
         }
     
+        $checkoutToken = Str::random(32);
+        session()->put('checkout_token', $checkoutToken);
+    
         $session = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('checkout.success') . '?success=true',
+            'success_url' => route('checkout.success', ['token' => $checkoutToken]),
             'cancel_url' => route('checkout.fail') . '?canceled=true',
         ]);
-
-        $cart->products()->detach();
+    
+        session()->put('purchase_details', [
+            'products' => $cart->products,
+            'vendor' => $cart->products->first()->vendor,
+        ]);
     
         return redirect($session->url);
+    }
+
+
+    public function success(Request $request)
+    {
+        $checkoutToken = session()->get('checkout_token');
+        if (!$checkoutToken || $request->query('token') !== $checkoutToken) {
+            return redirect()->route('cart.index')->with('error', 'Invalid or expired checkout session.');
+        }
+    
+        $purchaseDetails = session()->get('purchase_details');
+    
+        if (!$purchaseDetails) {
+            return redirect()->route('cart.index')->with('error', 'No purchase details found.');
+        }
+    
+        $order = \App\Models\Order::create([
+            'user_id' => Auth::id(),
+            'total_price' => $purchaseDetails['products']->sum(fn($product) => $product->price * $product->pivot->quantity),
+            'status' => 'completed',
+        ]);
+    
+        foreach ($purchaseDetails['products'] as $product) {
+            $order->products()->attach($product->id, [
+                'quantity' => $product->pivot->quantity,
+            ]);
+    
+            $product->decrement('stock', $product->pivot->quantity);
+        }
+
+        $cart = Auth::user()->cart;
+        $cart->products()->detach();
+    
+        session()->forget('purchase_details');
+        session()->forget('checkout_token');
+    
+        return view('checkout.success', [
+            'products' => $purchaseDetails['products'],
+            'vendor' => $purchaseDetails['vendor'],
+        ]);
     }
 }

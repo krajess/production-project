@@ -97,7 +97,7 @@
 
                 <div class="mt-6 mb-6 p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Product Description</h3>
-                    <p class="text-gray-700 dark:text-gray-300">{{ $product->description }}</p>
+                    <p class="text-gray-700 dark:text-gray-300">{!! nl2br(e($product->description)) !!}</p>
                 </div>
             </div>
         </div>

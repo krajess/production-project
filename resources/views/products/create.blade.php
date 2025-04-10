@@ -22,10 +22,12 @@
                                 </div>
 
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
-                                <input type="text" name="products[0][name]" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                <p class="text-gray-500 text-sm">Max. 60 characters.</p>
+                                <input type="text" name="products[0][name]" class="form-input rounded-md shadow-sm mt-1 block w-full" maxlength="60" required>
                                 
                                 <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200" style="margin-top: 10px;" >Description</label>
-                                <textarea name="products[0][description]" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
+                                <p class="text-gray-500 text-sm">Max. 1000 characters.</p>
+                                <textarea name="products[0][description]" class="form-input rounded-md shadow-sm mt-1 block w-full" maxlength="1000"></textarea>
 
                                 <label for="product_type" class="block text-sm font-medium text-gray-700 dark:text-gray-200" style="margin-top: 10px;">Product Type</label>
                                 <select name="products[0][product_type_id]" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
@@ -63,10 +65,12 @@
                     <input type="file" name="products[${productCount}][images][]" id="images-${productCount}" multiple class="form-input w-full mt-1" accept="image/*">
                 </div>
     
-                <label for="name-${productCount}" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
+                <label for="name-${productCount}" class="block text-sm font-medium text-gray-700 dark:text-gray-200" maxlength="60">Name</label>
+                <p class="text-gray-500 text-sm">Max. 60 characters.</p>
                 <input type="text" name="products[${productCount}][name]" id="name-${productCount}" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                 
-                <label for="description-${productCount}" class="block text-sm font-medium text-gray-700 dark:text-gray-200" style="margin-top: 10px;">Description</label>
+                <label for="description-${productCount}" class="block text-sm font-medium text-gray-700 dark:text-gray-200" maxlength="1000" style="margin-top: 10px;">Description</label>
+                <p class="text-gray-500 text-sm">Max. 1000 characters.</p>
                 <textarea name="products[${productCount}][description]" id="description-${productCount}" class="form-input rounded-md shadow-sm mt-1 block w-full"></textarea>
     
                 <label for="product_type-${productCount}" class="block text-sm font-medium text-gray-700 dark:text-gray-200" style="margin-top: 10px;">Product Type</label>

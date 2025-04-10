@@ -27,13 +27,34 @@ class ProductController extends Controller
         }
     
         $query = $request->input('query');
+        $sort = $request->input('sort');
+    
         $products = $vendor->products()
             ->when($query, function ($queryBuilder) use ($query) {
                 $queryBuilder->where('name', 'LIKE', '%' . $query . '%');
             })
+            ->when($sort === 'price_low_to_high', function ($queryBuilder) {
+                $queryBuilder->orderBy('price', 'asc');
+            })
+            ->when($sort === 'price_high_to_low', function ($queryBuilder) {
+                $queryBuilder->orderBy('price', 'desc');
+            })
+            ->when($sort === 'newest', function ($queryBuilder) {
+                $queryBuilder->orderBy('created_at', 'desc');
+            })
+            ->when($sort === 'oldest', function ($queryBuilder) {
+                $queryBuilder->orderBy('created_at', 'asc');
+            })
+            ->when($sort === 'alph-a-z', function ($queryBuilder) {
+                $queryBuilder->orderBy('name', 'asc');
+            })
+            ->when($sort === 'alph-z-a', function ($queryBuilder) {
+                $queryBuilder->orderBy('name', 'desc');
+            })
+
             ->paginate(20);
     
-        return view('products.show_products', compact('vendor', 'products'));
+        return view('products.show_products', compact('vendor', 'products', 'sort'));
     }
 
 
@@ -179,13 +200,33 @@ class ProductController extends Controller
     public function search(Request $request, Vendor $vendor)
     {
         $query = $request->input('query');
+        $sort = $request->input('sort');
     
         $products = $vendor->products()
-            ->where('name', 'LIKE', '%' . $query . '%')
+            ->when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%' . $query . '%');
+            })
+            ->when($sort === 'price_low_to_high', function ($queryBuilder) {
+                $queryBuilder->orderBy('price', 'asc');
+            })
+            ->when($sort === 'price_high_to_low', function ($queryBuilder) {
+                $queryBuilder->orderBy('price', 'desc');
+            })
+            ->when($sort === 'newest', function ($queryBuilder) {
+                $queryBuilder->orderBy('created_at', 'desc');
+            })
+            ->when($sort === 'oldest', function ($queryBuilder) {
+                $queryBuilder->orderBy('created_at', 'asc');
+            })
+            ->when($sort === 'alph-a-z', function ($queryBuilder) {
+                $queryBuilder->orderBy('name', 'asc');
+            })
+            ->when($sort === 'alph-z-a', function ($queryBuilder) {
+                $queryBuilder->orderBy('name', 'desc');
+            })
             ->paginate(20);
-
     
-        return view('products.show_products', compact('vendor', 'products'));
+        return view('products.show_products', compact('vendor', 'products', 'sort'));
     }
 
     public function remove_images($vendorId, $productId)

@@ -9,5 +9,4 @@
         <x-nav-vendor-owner>
             
         </x-nav-vendor-owner>
-
 </x-app-layout>

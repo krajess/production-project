@@ -89,4 +89,5 @@
             container.appendChild(newProduct);
         });
     </script>
+    <x-footer />
 </x-app-layout>

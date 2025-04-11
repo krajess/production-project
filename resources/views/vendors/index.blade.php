@@ -5,6 +5,17 @@
         </h2>
     </x-slot>
 
+    @if ($vendors->isEmpty())
+        <div class="py-4 w-full text-center">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        {{ __("No vendors available!") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -29,9 +40,9 @@
                             </div>
                             <div class="flex items-center justify-between mt-4">
                                 <p class="text-gray-700" style="font-size: 12px; font-weight: bold; text-align: left;">
-                                    Reviews:
+                                    Total Products: {{ $vendor->products_count }}
                                 </p>
-                                <p class="text-gray-700 text-center" style="font-size: 12px; font-weight: bold; margin: 0 auto;">
+                                <p class="text-gray-700 text-center" style="font-size: 12px; font-weight: bold; margin-right: 490px;">
                                     Email: {{$vendor->email}}
                                 </p>
                             </div>
@@ -43,4 +54,6 @@
             </div>
         </div>
     </div>
+    @endif
+    <x-footer />
 </x-app-layout>

@@ -9,10 +9,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
 Route::get('/vendors/{vendor}', [ProductController::class, 'index'])->name('products.show_products');

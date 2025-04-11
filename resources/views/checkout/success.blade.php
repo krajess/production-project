@@ -13,6 +13,7 @@
                     <p><strong>Order ID:</strong> #{{ $order->id }}</p>
                     <p><strong>Vendor:</strong> {{ $vendor->name }}</p>
                     <p><strong>Email:</strong> {{ $vendor->email }}</p>
+                    <p><strong>Order Date:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
 
                     <table class="table-auto w-full mt-4">
                         <thead>

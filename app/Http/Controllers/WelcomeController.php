@@ -11,7 +11,8 @@ class WelcomeController extends Controller
     {
         $randomProducts = Product::inRandomOrder()->take(3)->get();
         $randomVendor = Vendor::inRandomOrder()->first();
+        $totalProductsForVendor = Product::where('vendor_id', $randomVendor->id)->count();
 
-        return view('welcome', compact('randomProducts', 'randomVendor'));
+        return view('welcome', compact('randomProducts', 'randomVendor', 'totalProductsForVendor'));
     }
 }

@@ -12,7 +12,8 @@ class VendorController extends Controller
 {
     public function index()
     {
-        $vendors = Vendor::where('visible', true)->get();
+        $vendors = Vendor::where('visible', true)->withCount('products')->get();
+
         return view('vendors.index', compact('vendors'));
     }
 

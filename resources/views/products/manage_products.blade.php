@@ -50,7 +50,7 @@
                         @endif
                         <div class="flex flex-col w-full">
                             <div class="flex justify-between items-center mb-1">
-                                <p class="font-bold" style="font-size: 20px;">{{ $product->name }}</p>
+                                <p class="font-bold product-name" style="font-size: 20px;">{{ $product->name }}</p>
                                 <p class="bg-blue-200 text-black px-2 mr-2 rounded border border-black" style="font-size: 11px;">{{ $product->product_types_name }}</p>
                             </div>
                             <p class="text-gray-700 mb-1 product-description">{{ $product->description }}</p>
@@ -95,6 +95,15 @@
     .product-description {
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    .product-name {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;

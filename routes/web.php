@@ -24,6 +24,12 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin/applications/{application}', [ApplicationController::class, 'show'])->name('admin.show-application');
     Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
     Route::patch('/admin/vendors/{vendor}/visible', [AdminController::class, 'VendorVisible'])->name('admin.vendors.VendorVisible');
+
+    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.edit_users');
+    Route::patch('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+
+    Route::get('/admin/vendors/{vendor}/edit', [AdminController::class, 'editVendor'])->name('admin.edit_vendor');
+    Route::patch('/admin/vendors/{vendor}', [AdminController::class, 'updateVendor'])->name('admin.update_vendor');
 });
 
 Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {

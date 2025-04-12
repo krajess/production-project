@@ -111,7 +111,7 @@ class AdminController extends Controller
             'description_text_color' => 'nullable|string|max:7',
             'button_text_color' => 'nullable|string|max:7',
             'button_background_color' => 'nullable|string|max:7',
-            'stripe_account_id' => 'nullable|string',
+            'stripe_account_id' => 'nullable',
         ]);
 
         $vendor->update($request->all());

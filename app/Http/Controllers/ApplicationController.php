@@ -22,14 +22,15 @@ class ApplicationController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $application = Application::where('user_id', $user->id)->first();
     
-        if (Application::where('user_id', $user->id)->exists()) {
+        if ($application && $application->status !== 'rejected') {
             return redirect()->route('applications.index');
         }
     
         return view('applications.create');
     }
-
+    
     public function store(Request $request)
     {
         $request->validate([

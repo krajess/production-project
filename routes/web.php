@@ -10,11 +10,14 @@ use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PurchaseHistoryController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
 Route::get('/vendors/{vendor}', [ProductController::class, 'index'])->name('products.show_products');
+
+
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -64,6 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
     Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
+
+    Route::get('/purchase_history', [PurchaseHistoryController::class, 'index'])->name('purchase.history');
+    
 });
 
 Route::middleware('auth')->group(function () {

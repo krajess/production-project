@@ -110,7 +110,8 @@ class ProductController extends Controller
             $product->save();
         }
 
-        return redirect()->route('products.create', $vendorID);
+        return redirect()->route('products.create', $vendorID)
+                         ->with('success', 'Product added successfully.');
     }
 
     /**
@@ -181,7 +182,7 @@ class ProductController extends Controller
 
         $product->delete();
     
-        return redirect()->route('products.manage_products', $vendorID);
+        return redirect()->route('products.manage_products', $vendorID)->with('success', 'Product deleted successfully.');
     }
 
     public function manage_products($id)

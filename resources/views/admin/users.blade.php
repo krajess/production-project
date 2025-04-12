@@ -6,12 +6,13 @@
     </x-slot>
 
     <div class="flex">
-        <x-nav-menu-admin>
+        <div class="w-1/6">
+            <x-nav-menu-admin>
+            </x-nav-menu-admin>
+        </div>
 
-        </x-nav-menu-admin>
-
-    <div class="w-4/5 py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-5/6 flex flex-wrap gap-4">
+            <div class="w-full md:w-2/2 py-4 mr-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -56,7 +57,7 @@
                                         {{ implode(' | ', $roles) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('admin.users', $user->id) }}" class="btn-dark">
+                                        <a href="{{ route('admin.edit_users', $user->id) }}" class="btn-dark">
                                             EDIT
                                         </a>
                                     </td>
@@ -68,4 +69,7 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+
 </x-app-layout>

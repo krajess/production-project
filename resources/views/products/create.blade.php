@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Add Products') }}
+        <h2 class="font-semibold text-center text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('ADD PRODUCTS') }}
         </h2>
     </x-slot>
 
@@ -44,6 +44,15 @@
                             </div>
                         </div>
                         <button type="submit" class="btn-dark">Add Products</button>
+                        @if(session('success'))
+                            <div class="text-green-500 alert alert-success text-center">
+                                {{ session('success') }}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

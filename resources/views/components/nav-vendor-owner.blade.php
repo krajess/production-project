@@ -6,14 +6,21 @@
             </div>
             <a href="{{ route('vendor_owner.index') }}" class="btn-dark mb-2 block text-center">Dashboard</a>
             <div x-data="{ open: false }" class="w-full">
-                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Stores</button>
+                @if (auth()->user()->vendors && auth()->user()->vendors->count() > 0)
+                    @foreach (auth()->user()->vendors as $vendor)
+                        <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">{{ $vendor->name }}</button>
+                    @endforeach
+                @else
+                    <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">No Active Vendor</button>
+                @endif
+                
                 <div x-show="open" class="mt-2 space-y-2">
                     @if (auth()->user()->vendors && auth()->user()->vendors->count() > 0)
                         @foreach (auth()->user()->vendors as $vendor)
-                            <a href="{{ route('vendor_owner.edit', $vendor->id) }}" class="btn-bright block text-center">{{ $vendor->name }}</a>
+                            <a href="{{ route('vendor_owner.edit', $vendor->id) }}" class="btn-bright block text-center">Update Information</a>
                         @endforeach
                     @else
-                        <p class="text-center text-gray-500">No vendors available</p>
+                        <a href="{{ route('vendor_owner.edit', $vendor->id) }}" class="btn-bright block text-center" disabled>No Active Vendor</a>
                     @endif
                 </div>
             </div>

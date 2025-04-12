@@ -64,6 +64,10 @@
                             <x-dropdown-link :href="route('cart.index')">
                                 {{ __('Your Cart') }}
                             </x-dropdown-link>
+                            
+                            <x-dropdown-link :href="route('purchase.history')">
+                                {{ __('Order History') }}
+                            </x-dropdown-link>
 
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}

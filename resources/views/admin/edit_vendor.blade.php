@@ -34,6 +34,14 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="visible" class="block text-sm font-medium text-gray-700">Visible</label>
+                            <select name="visible" id="visible" class="form-input rounded-md shadow-sm mt-1 block w-full">
+                                <option value="1" {{ old('visible', $vendor->visible) == 1 ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ old('visible', $vendor->visible) == 0 ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
                             <label for="background_color" class="block text-sm font-medium text-gray-700">Background Color</label>
                             <input type="text" name="background_color" id="background_color" value="{{ old('background_color', $vendor->background_color) }}" class="form-input rounded-md shadow-sm mt-1 block w-full">
                         </div>

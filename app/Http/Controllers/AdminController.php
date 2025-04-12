@@ -69,4 +69,53 @@ class AdminController extends Controller
         
         return redirect()->route('admin.vendors');
     }
+
+    public function editUser(User $user)
+    
+    {
+        return view('admin.edit_users', compact('user'));
+    }
+    
+    public function updateUser(Request $request, User $user)
+    
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'is_vendor_owner' => 'required|boolean',
+            'is_customer' => 'required|boolean',
+        ]);
+
+        $user->update($request->all());
+
+        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+    }
+
+    public function editVendor(Vendor $vendor)
+    
+    {
+        return view('admin.edit_vendor', compact('vendor'));
+    }
+    
+    public function updateVendor(Request $request, Vendor $vendor)
+    
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'email' => 'required|email|unique:vendors,email,' . $vendor->id,
+            'visible' => 'required|boolean',
+            'background_color' => 'nullable|string|max:7',
+            'text_color' => 'nullable|string|max:7',
+            'description_text_color' => 'nullable|string|max:7',
+            'button_text_color' => 'nullable|string|max:7',
+            'button_background_color' => 'nullable|string|max:7',
+            'stripe_account_id' => 'nullable|string',
+        ]);
+
+        $vendor->update($request->all());
+
+        return redirect()->route('admin.vendors')->with('success', 'Vendor updated successfully.');
+    }
 }

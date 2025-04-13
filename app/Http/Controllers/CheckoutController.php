@@ -16,6 +16,12 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
     
+        $vendor = $cart->products->first()->vendor;
+    
+        if (!$vendor->stripe_account_id) {
+            return redirect()->route('cart.index')->with('error', 'Vendor does not have a connected Stripe account.');
+        }
+    
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
     
         $lineItems = [];
@@ -35,33 +41,27 @@ class CheckoutController extends Controller
     
         $checkoutToken = Str::random(32);
         session()->put('checkout_token', $checkoutToken);
-
-        $vendor = $cart->products->first()->vendor;
-        
-        if (!$vendor->stripe_account_id) {
-            return redirect()->route('cart.index')->with('error', 'Vendor does not have a connected Stripe account.');
-        }
     
-        $session = $stripe->checkout->sessions->create([
-            'payment_method_types' => ['card'],
-            'line_items' => $lineItems,
-            'mode' => 'payment',
-            'success_url' => route('checkout.success', ['token' => $checkoutToken]),
-            'cancel_url' => route('checkout.fail') . '?canceled=true',
-            'payment_intent_data' => [
-                'transfer_data' => [
-                    'destination' => $vendor->stripe_account_id,
+        $session = $stripe->checkout->sessions->create(
+            [
+                'payment_method_types' => ['card'],
+                'line_items' => $lineItems,
+                'mode' => 'payment',
+                'success_url' => route('checkout.success', ['token' => $checkoutToken]),
+                'cancel_url' => route('checkout.fail') . '?canceled=true',
+                'billing_address_collection' => 'required',
+                'shipping_address_collection' => [
+                    'allowed_countries' => ['GB'],
                 ],
             ],
-            'billing_address_collection' => 'required',
-            'shipping_address_collection' => [ 
-                'allowed_countries' => ['GB',],
-            ],
-        ]);
+            [
+                'stripe_account' => $vendor->stripe_account_id,
+            ]
+        );
     
         session()->put('purchase_details', [
             'products' => $cart->products,
-            'vendor' => $cart->products->first()->vendor,
+            'vendor' => $vendor,
         ]);
     
         return redirect($session->url);

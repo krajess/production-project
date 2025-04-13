@@ -60,6 +60,10 @@ class VendorController extends Controller
     
         $account = $stripe->accounts->create([
             'type' => 'express',
+            'capabilities' => [
+                'card_payments' => ['requested' => true],
+                'transfers' => ['requested' => true],
+            ],
         ]);
     
         $vendor->stripe_account_id = $account->id;

@@ -36,26 +36,26 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
-    Route::get('/vendor_dashboard', [VendorOwnerController::class, 'index'])->name('vendor_owner.index');
-    Route::get('/vendor_dashboard/{vendor}', [VendorOwnerController::class, 'edit'])->name('vendor_owner.edit');
-    Route::patch('/vendor_dashboard/{vendor}', [VendorOwnerController::class, 'update'])->name('vendor_owner.update');
+    Route::get('/vendor-dashboard', [VendorOwnerController::class, 'index'])->name('vendor_owner.index');
+    Route::get('/vendor-dashboard/{vendor}', [VendorOwnerController::class, 'edit'])->name('vendor_owner.edit');
+    Route::patch('/vendor-dashboard/{vendor}', [VendorOwnerController::class, 'update'])->name('vendor_owner.update');
 
-    Route::get('/vendor_dashboard/{vendor}/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/vendor_dashboard/{vendor}/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/vendor-dashboard/{vendor}/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/vendor-dashboard/{vendor}/products', [ProductController::class, 'store'])->name('products.store');
 
-    Route::get('/vendor_dashboard/{vendor}/products', [ProductController::class, 'manage_products'])->name('products.manage_products');
-    Route::get('/vendor_dashboard/{vendor}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::patch('/vendor_dashboard/{vendor}/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::get('/vendor-dashboard/{vendor}/products', [ProductController::class, 'manage_products'])->name('products.manage_products');
+    Route::get('/vendor-dashboard/{vendor}/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/vendor-dashboard/{vendor}/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
     Route::get('/vendor/{vendor}/preview', [VendorController::class, 'preview'])->name('vendor_owner.preview');
 
-    Route::delete('/vendor_dashboard/{vendor}/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::delete('/vendor-dashboard/{vendor}/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get('/vendor/{vendor}/stripe/dashboard', [VendorController::class, 'stripe_dashboard'])->name('vendor.stripe.dashboard');
 
-    Route::delete('/vendor_dashboard/{vendor}/products/{product}/images', [ProductController::class, 'remove_images'])->name('products.remove_images');
+    Route::delete('/vendor-dashboard/{vendor}/products/{product}/images', [ProductController::class, 'remove_images'])->name('products.remove_images');
 
-    Route::get('/vendor_dashboard/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
+    Route::get('/vendor-dashboard/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
 
     Route::get('/vendor/{vendor}/connect-stripe', [VendorOwnerController::class, 'connectStripePage'])->name('vendor_owner.connect_stripe');
 });

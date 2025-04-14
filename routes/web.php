@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\ContactMessageController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
@@ -32,6 +33,7 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::patch('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::get('/admin/vendors/{vendor}/edit', [AdminController::class, 'editVendor'])->name('admin.edit_vendor');
     Route::patch('/admin/vendors/{vendor}', [AdminController::class, 'updateVendor'])->name('admin.update_vendor');
+    Route::get('/admin/contact-messages', [ContactMessageController::class, 'index'])->name('admin.show_contact');
 });
 
 Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
@@ -69,6 +71,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', function () {return view('checkout.fail');})->name('checkout.fail');
+
+    Route::get('/contact', [ContactMessageController::class, 'create'])->name('contact.create');
+    Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store');
 });
 
 require __DIR__.'/auth.php';

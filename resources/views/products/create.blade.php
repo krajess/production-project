@@ -22,6 +22,7 @@
     
                                     <div class="mb-4">
                                         <label for="images" class="block text-sm font-medium text-gray-700">Upload Images</label>
+                                        <p class="text-gray-500 text-sm">Max. 5 pictures.</p>
                                         <input type="file" name="images[]" id="images" multiple class="form-input w-full mt-1" accept="image/*">
                                     </div>
     

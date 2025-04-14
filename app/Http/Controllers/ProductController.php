@@ -119,6 +119,14 @@ class ProductController extends Controller
      */
     public function show(Vendor $vendor, Product $product)
     {
+        if (!$vendor->visible && !Gate::allows('view-vendor', $vendor)) {
+            abort(404, 'Vendor not found or not visible.');
+        }
+
+        if ($product->vendor_id !== $vendor->id) {
+            abort(404, 'Product not found or not visible.');
+        }
+    
         $relatedProducts = $vendor->products()
             ->where('id', '!=', $product->id)
             ->inRandomOrder()

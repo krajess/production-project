@@ -71,11 +71,11 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="mt-4 p-4">
-                    {{ $products->appends(['query' => request('query')])->links() }}
-                </div>
             @endif
         </div>
+    </div>
+    <div class="pagination-container mt-4">
+        {{ $products->appends(['query' => request('query')])->links() }}
     </div>
     <x-footer />
 </x-app-layout>
@@ -114,4 +114,11 @@
         text-overflow: ellipsis;
         white-space: normal;
     }
+
+    .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 </style>

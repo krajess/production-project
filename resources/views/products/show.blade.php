@@ -42,7 +42,7 @@
 
                     <div class="lg:w-1/2 lg:pl-6 flex flex-col">
                         <p class="text-gray-700" style="margin-top: 10px; margin-bottom:10ox; font-size: 36px; font-weight: bold;">{{ $product->name }}</p>
-                        <p class="text-gray-700" style="margin-top: 15px; font-size: 24px; font-weight: bold;">&pound {{ number_format($product->price, 2) }}</p>
+                        <p class="text-green-500" style="margin-top: 15px; font-size: 24px; font-weight: bold;">&pound {{ number_format($product->price, 2) }}</p>
                         <p class="text-gray-700" style="margin-top: 15px; font-size: 18px; font-weight: bold;">Stock: {{ $product->stock }}</p>
                         <p class="text-gray-700" style="margin-top: 15px; font-size: 12px; font-weight: bold;">Type: {{ $product->product_types_name }}</p>
 
@@ -64,29 +64,6 @@
                                         </svg> 
                                     </button>
                                 </div>
-                                @if ($product->product_types_name == 'Clothing')
-                                    <div class="flex space-x-2 mt-5">
-                                        @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL'] as $size)
-                                            <label class="cursor-pointer">
-                                                <input type="radio" name="size" value="{{ $size }}" class="hidden">
-                                                <div class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200">
-                                                    {{ $size }}
-                                                </div>
-                                            </label>
-                                        @endforeach
-                                    </div>
-                                @elseif ($product->product_types_name == 'Footwear')
-                                    <div class="flex space-x-2 mt-5">
-                                        @foreach (['3UK', '4UK', '5UK', '6UK', '7UK', '8UK', '9UK', '10UK', '11UK', '12UK', '13UK'] as $size_shoes)
-                                            <label class="cursor-pointer">
-                                                <input type="radio" name="size" value="{{ $size_shoes }}" class="hidden">
-                                                <div class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200">
-                                                    {{ $size_shoes }}
-                                                </div>
-                                            </label>
-                                        @endforeach
-                                    </div>
-                                @endif
                                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" style="margin-top: 60px; margin-right: 20px;">Add to Cart</button>
                             </form>
                         @endif
@@ -106,12 +83,19 @@
                     @forelse ($relatedProducts as $relatedProduct)
                         <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
                             <a href="{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $relatedProduct->id]) }}">
-                                <img src="{{ asset('storage/' . ($relatedProduct->images[0] ?? 'placeholder.png')) }}" 
-                                     alt="{{ $relatedProduct->name }}" 
-                                     class="w-full h-40 object-contain mb-4 rounded">
+                                <img src="{{ asset($relatedProduct->images[0] ?? 'placeholder.png') }}" 
+                                    alt="{{ $relatedProduct->name }}" 
+                                    class="w-full h-40 object-contain mb-4 rounded">
                                 <h4 class="text-gray-800 dark:text-gray-200 font-semibold">{{ $relatedProduct->name }}</h4>
                                 <p class="text-gray-700 mb-1 product-description">{{ $product->description }}</p>
                                 <p class="text-green-500 font-semibold mb-3">£{{ number_format($relatedProduct->price, 2) }}</p>
+                                @if ($relatedProduct->stock == 0)
+                                    <p class="text-red-500 font-semibold mb-3" style="font-size: 13px;">Out of stock</p>
+                                @elseif ($relatedProduct->stock < 10)
+                                    <p class="text-orange-300 font-semibold mb-3" style="font-size: 13px;">Low in stock - {{ $relatedProduct->stock }} available</p>
+                                @else
+                                    <p class="text-gray-700 font-semibold mb-3" style="font-size: 13px;">In Stock - 10+ available</p>
+                                @endif
                             </a>
                         </div>
                     @empty

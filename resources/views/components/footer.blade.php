@@ -31,7 +31,7 @@
                             <a href="#" class="hover:underline">FAQ</a>
                         </li>
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Contact Us</a>
+                            <a href="{{ route('contact.create') }}" class="hover:underline">Contact Us</a>
                         </li>
                         <li class="mb-4">
                             <a href="#" class="hover:underline">Support</a>

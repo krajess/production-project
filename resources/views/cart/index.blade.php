@@ -27,13 +27,9 @@
             </div>
         </div>
     @endif
-
-    <div class="flex">
-        <x-nav-cart-menu>
-        </x-nav-cart-menu>
         
-        <div class="py-8 w-2/3" style="margin-top: -15px; margin-right: 15px;">
-            <div class="w-full">
+        <div class="py-8 flex justify-center items-center">
+            <div class="w-2/3">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"> 
                         @if($cart && $cart->products->count())
                         <div class="flex flex-col space-y-6">
@@ -100,7 +96,7 @@
                     @if ($cart && $cart->products->isNotEmpty())
                     <form action="{{ route('checkout.create', ['vendor' => $product->vendor->id, 'product' => $product->id]) }}" method="POST">
                         @csrf
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded m-2">Buy Now</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded m-2">Go to Checkout</button>
                     </form>
                 @endif
                 </div>

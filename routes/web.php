@@ -56,8 +56,6 @@ Route::middleware(['auth', 'can:is-vendor-owner'])->group(function () {
     Route::delete('/vendor-dashboard/{vendor}/products/{product}/images', [ProductController::class, 'remove_images'])->name('products.remove_images');
 
     Route::get('/vendor-dashboard/{vendor}/stripe/link', [VendorController::class, 'connectStripeAcc'])->name('vendor.stripe.link');
-
-    Route::get('/vendor/{vendor}/connect-stripe', [VendorOwnerController::class, 'connectStripePage'])->name('vendor_owner.connect_stripe');
 });
 
 Route::get('/vendors/{vendor}/products/{product}', [ProductController::class, 'show'])->name('vendors.products.show');

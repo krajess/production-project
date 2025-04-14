@@ -61,12 +61,20 @@
                                     <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @elseif ($product->stock < 10)
                                 <p class="text-orange-300 font-semibold mb-3" style="font-size: 13px;">Low in stock - {{ $product->stock }} available</p>
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
+                                    <form method="POST" action="{{ route('cart.add', ['product' => $product->id]) }}">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
+                                    </form>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @else
                                 <p class="text-black-700 mb-3" style="font-size: 13px;">In stock - 10+ available</p>
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
+                                    <form method="POST" action="{{ route('cart.add', ['product' => $product->id]) }}">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full" style="margin-bottom: 10px;">Purchase</button>
+                                    </form>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded w-full" onclick="window.location='{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $product->id]) }}'">View</button>
                             @endif
                         </div>
                     </div>

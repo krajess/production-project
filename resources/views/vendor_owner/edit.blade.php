@@ -21,10 +21,12 @@
                             @method('PATCH')
                             <div class="mb-4">
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Name</label>
+                                <p class="text-gray-500 text-sm">Max. 30 characters.</p>
                                 <input type="text" name="name" id="name" value="{{ $vendor->name }}" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" maxlength="30" required>
                             </div>
                             <div class="mb-4">
                                 <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor Description</label>
+                                <p class="text-gray-500 text-sm">Max. 1000 characters.</p>
                                 <textarea name="description" id="description" class="form-input w-full mt-1 dark:bg-gray-700 dark:text-gray-200" maxlength="1000" required>{{ $vendor->description }}</textarea>
                             </div>
                             <div class="mb-4">

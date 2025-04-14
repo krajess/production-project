@@ -65,4 +65,31 @@ class CartController extends Controller
 
         return redirect()->route('cart.index');
     }
+
+    public function buy_button(Request $request, Product $product)
+    {
+        $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
+
+        if ($cart->products()->exists() && $cart->products()->first()->vendor_id !== $product->vendor_id) {
+            return redirect()->route('cart.index')->with('error', 'You cannot add products from different vendors.');
+        }
+
+        $existingProduct = $cart->products()->where('product_id', $product->id)->first();
+        $requestedQuantity = $request->input('quantity', 1);
+
+        $currentQuantity = $existingProduct ? $existingProduct->pivot->quantity : 0;
+        $newTotalQuantity = $currentQuantity + $requestedQuantity;
+
+        if ($newTotalQuantity > $product->stock) {
+            return redirect()->route('cart.index')->with('error', 'You cannot add more than ' . $product->stock . ' of this product.');
+        }
+
+        if ($existingProduct) {
+            $cart->products()->updateExistingPivot($product->id, ['quantity' => $newTotalQuantity]);
+        } else {
+            $cart->products()->attach($product->id, ['quantity' => $requestedQuantity]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Product successfully added to cart.');
+    }
 }

@@ -9,8 +9,11 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $randomProducts = Product::inRandomOrder()->take(3)->get();
-        $randomVendor = Vendor::inRandomOrder()->first();
+        $randomProducts = Product::whereHas('vendor', function ($query) {
+            $query->where('visible', 1);
+        })->inRandomOrder()->take(3)->get();
+
+        $randomVendor = Vendor::where('visible', 1)->inRandomOrder()->first();
 
         if ($randomVendor) {
             $totalProductsForVendor = Product::where('vendor_id', $randomVendor->id)->count();

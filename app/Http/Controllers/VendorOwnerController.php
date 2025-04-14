@@ -6,12 +6,47 @@ use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Stripe\StripeClient;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VendorOwnerController extends Controller
 {
     public function index()
     {
-        return view('vendor_owner.index');
+        $vendor = Vendor::where('owner_id', Auth::id())->with('products')->firstOrFail();
+    
+        $totalSales = $vendor->products()
+            ->join('order_product', 'products.id', '=', 'order_product.product_id')
+            ->sum(DB::raw('order_product.quantity * products.price'));
+    
+        $totalProducts = $vendor->products()->count();
+    
+        $lowStockProducts = $vendor->products()
+            ->whereBetween('stock', [1, 10])
+            ->take(3)
+            ->get();
+    
+        $outOfStockProducts = $vendor->products()->where('stock', '=', 0)->take(3)->get();
+    
+        $totalNumberOfSales = $vendor->products()
+            ->join('order_product', 'products.id', '=', 'order_product.product_id')
+            ->sum('order_product.quantity');
+    
+        $lastSale = $vendor->products()
+            ->join('order_product', 'products.id', '=', 'order_product.product_id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id')
+            ->orderBy('orders.created_at', 'desc')
+            ->select('products.name as product_name', 'order_product.quantity', 'orders.created_at')
+            ->first();
+    
+        return view('vendor_owner.index', compact(
+            'vendor',
+            'totalSales',
+            'totalProducts',
+            'lowStockProducts',
+            'outOfStockProducts',
+            'totalNumberOfSales',
+            'lastSale'
+        ));
     }
 
     public function edit($id)
@@ -48,24 +83,35 @@ class VendorOwnerController extends Controller
 
     public function connectStripeAcc(Request $request, $id)
     {
-    $vendor = Vendor::findOrFail($id);
+        $vendor = Vendor::findOrFail($id);
 
-    if (Auth::user()->id !== $vendor->owner_id) {
-        abort(403, 'Unauthorized access.');
+        if (Auth::user()->id !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        if (!empty($vendor->stripe_account_id)) {
+            return redirect()->route('vendor-dashboard')->with('error', 'Your Stripe account is already connected.');
+        }
+
+        $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+        $account = $stripe->accounts->create([
+            'type' => 'express',
+        ]);
+
+        $vendor->stripe_account_id = $account->id;
+        $vendor->save();
+
+        return redirect()->route('vendor_owner.edit', $id);
     }
 
-    if (!empty($vendor->stripe_account_id)) {
-        return redirect()->route('vendor_dashboard')->with('error', 'Your Stripe account is already connected.');
+    public function connectStripePage($id)
+    {
+        $vendor = Vendor::findOrFail($id);
+
+        if (Auth::id() !== $vendor->owner_id) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        return view('vendor_owner.connect_stripe', compact('vendor'));
     }
-
-    $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-    $account = $stripe->accounts->create([
-        'type' => 'express',
-    ]);
-
-    $vendor->stripe_account_id = $account->id;
-    $vendor->save();
-
-    return redirect()->route('vendor_owner.edit', $id);
-}
 }

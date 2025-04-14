@@ -60,6 +60,20 @@
                                 <input type="color" id="button_background_color" name="button_background_color" value="{{ $vendor->button_background_color ?? '#007bff' }}" class="mt-1 block w-full">
                             </div>
 
+                            <div class="mb-4">
+                                <h2 class="text-lg">Connect Stripe</h2>
+                                <p class="text-sm text-gray-500">Connect your Stripe Account to complete your vendor process.</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                @if (!empty($vendor->stripe_account_id))
+                                    <p class="text-green-500">Account connected successfully!</p>
+                                    <p class="text-sm text-gray-500">Stripe Account ID: <strong>{{ $vendor->stripe_account_id }}</strong></p>
+                                @else
+                                <a href="{{ route('vendor.stripe.link', ['vendor' => $vendor->id]) }}" class="btn-dark text-center">CONNECT YOUR STRIPE ACCOUNT</a>
+                                @endif
+                            </div>
+
                             <button type="submit" class="btn-dark w-full mt-2">UPDATE DETAILS</button>
                         </form>
                     </div>

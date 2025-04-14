@@ -42,8 +42,7 @@
             <div x-data="{ open: false }" class="w-full">
                 <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Stripe Account</button>
                 <div x-show="open" class="mt-2 space-y-2">
-                    <a href="{{ route('vendor_owner.connect_stripe', $vendor->id) }}" class="btn-bright block text-center">Connect Stripe</a>
-                    <a href="{{ route('vendor.stripe.dashboard', $vendor->id) }}" class="btn-bright block text-center">View Dashboard</a>
+                    <a href="{{ route('vendor.stripe.dashboard', $vendor->id) }}" class="btn-bright block text-center">View Transactions</a>
                 </div>
             </div>
         </div>

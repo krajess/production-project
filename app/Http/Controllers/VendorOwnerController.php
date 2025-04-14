@@ -80,38 +80,4 @@ class VendorOwnerController extends Controller
 
         return redirect()->route('vendor_owner.index');
     }
-
-    public function connectStripeAcc(Request $request, $id)
-    {
-        $vendor = Vendor::findOrFail($id);
-
-        if (Auth::user()->id !== $vendor->owner_id) {
-            abort(403, 'Unauthorized access.');
-        }
-
-        if (!empty($vendor->stripe_account_id)) {
-            return redirect()->route('vendor-dashboard')->with('error', 'Your Stripe account is already connected.');
-        }
-
-        $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-        $account = $stripe->accounts->create([
-            'type' => 'express',
-        ]);
-
-        $vendor->stripe_account_id = $account->id;
-        $vendor->save();
-
-        return redirect()->route('vendor_owner.edit', $id);
-    }
-
-    public function connectStripePage($id)
-    {
-        $vendor = Vendor::findOrFail($id);
-
-        if (Auth::id() !== $vendor->owner_id) {
-            abort(403, 'Unauthorized access.');
-        }
-
-        return view('vendor_owner.connect_stripe', compact('vendor'));
-    }
 }

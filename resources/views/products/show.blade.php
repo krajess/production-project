@@ -100,8 +100,28 @@
                     <p class="text-gray-700 dark:text-gray-300">{!! nl2br(e($product->description)) !!}</p>
                 </div>
             </div>
+            <div class="mt-6 mb-6 p-6 text-gray-900 dark:text-gray-100">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">More Products from {{ $vendor->name }}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    @forelse ($relatedProducts as $relatedProduct)
+                        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+                            <a href="{{ route('vendors.products.show', ['vendor' => $vendor->id, 'product' => $relatedProduct->id]) }}">
+                                <img src="{{ asset('storage/' . ($relatedProduct->images[0] ?? 'placeholder.png')) }}" 
+                                     alt="{{ $relatedProduct->name }}" 
+                                     class="w-full h-40 object-contain mb-4 rounded">
+                                <h4 class="text-gray-800 dark:text-gray-200 font-semibold">{{ $relatedProduct->name }}</h4>
+                                <p class="text-gray-700 mb-1 product-description">{{ $product->description }}</p>
+                                <p class="text-green-500 font-semibold mb-3">£{{ number_format($relatedProduct->price, 2) }}</p>
+                            </a>
+                        </div>
+                    @empty
+                        <p class="text-gray-600 dark:text-gray-400">No products available from this vendor.</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
     </div>
+    <x-footer />
 </x-app-layout>
 
 <style>
@@ -113,5 +133,14 @@
     
     input[type="number"] {
         -moz-appearance: textfield;
+    }
+
+    .product-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
     }
     </style>

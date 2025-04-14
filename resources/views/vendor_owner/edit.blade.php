@@ -6,12 +6,13 @@
     </x-slot>
 
     <div class="flex">
-        <x-nav-vendor-owner>
-            
-        </x-nav-vendor-owner>
+        <div class="w-1/6">
+            <x-nav-vendor-owner>
+            </x-nav-vendor-owner>
+        </div>
 
-        <div class="w-4/5 py-4">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-5/6 flex flex-wrap gap-4 mr-4">
+            <div class="w-full md:w-2/2 py-4">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h2 class="text-center font-bold mb-4">Update Vendor Information</h2>
@@ -59,23 +60,11 @@
                                 <input type="color" id="button_background_color" name="button_background_color" value="{{ $vendor->button_background_color ?? '#007bff' }}" class="mt-1 block w-full">
                             </div>
 
-                            <div class="mb-4">
-                                <h2>Connect Stripe</h2>
-                                <p class="text-sm text-gray-500">Connect your Stripe Account to complete your vendor process.</p>
-                            </div>
-                            
-                            <div class="mb-4">
-                                @if (!empty($vendor->stripe_account_id))
-                                    <p class="text-green-500">Account connected successfully!</p>
-                                    <p class="text-sm text-gray-500">Stripe Account ID: <strong>{{ $vendor->stripe_account_id }}</strong></p>
-                                @else
-                                    <a href="{{ route('vendor.stripe.link', ['vendor' => $vendor->id]) }}" class="btn-dark">Connect Stripe Account</a>
-                                @endif
-                            </div>
                             <button type="submit" class="btn-dark w-full mt-2">UPDATE DETAILS</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </x-app-layout>

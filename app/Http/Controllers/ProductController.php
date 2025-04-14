@@ -119,7 +119,13 @@ class ProductController extends Controller
      */
     public function show(Vendor $vendor, Product $product)
     {
-        return view('products.show', compact('vendor', 'product'));
+        $relatedProducts = $vendor->products()
+            ->where('id', '!=', $product->id)
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+    
+        return view('products.show', compact('vendor', 'product', 'relatedProducts'));
     }
 
     /**

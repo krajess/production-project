@@ -26,6 +26,13 @@
                     <a href="{{ route('admin.users') }}" class="btn-bright mb-2 block text-center">View Users</a>
                 </div>
             </div>
+
+            <div x-data="{ open: false }" class="w-full">
+                <button @click="open = !open" class="btn-dark mb-2 block text-center w-full">Messages</button>
+                <div x-show="open" class="mt-2 space-y-2">
+                    <a href="{{ route('admin.show_contact') }}" class="btn-bright mb-2 block text-center">View Messages</a>
+                </div>
+            </div>
         </div>
     </div>
 @endif

@@ -77,7 +77,8 @@
                                     <br />
                                     <p>1. Go to your Account</p>
                                     <p>2. Navigate to your <a href="{{ route('vendor_owner.index') }}" class="text-blue-500 underline">Vendor Dashboard</a></p>
-                                    <p>3. Link your Stripe Account with your Vendor.</p>
+                                    <p>3. Click on your Vendor in Managemen Menu.</p>
+                                    <p>4. Update Informations and Connect your Stripe Account.</p>
                                     <br />
                                     <p>Once your Stripe account is successfully connected, our team will review it within 24 hours and make your vendor visible to others.</p>
                                     <br />

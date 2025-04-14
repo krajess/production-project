@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('vendors.index')" :active="request()->routeIs('vendors.index')">
                         {{ __('Vendors') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('contact.create')" :active="request()->routeIs('contact.create')">
+                        {{ __('Contact Us') }}
+                    </x-nav-link>
                     @auth
                         @if(!Auth::user()->is_admin==1)
                             @if($appSent)

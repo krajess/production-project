@@ -1,4 +1,4 @@
-<p align="center"><img src="{{ asset('logo2.png') }}" alt="ECG Logo" class="mx-auto mb-4" style="width: 1000px; height: 200px;"></p>
+<p align="center"><img src="assets/images/logo2.png" alt="ECG Logo" class="mx-auto mb-4" style="width: 1000px; height: 200px;"></p>
 
 
 ## About ECG

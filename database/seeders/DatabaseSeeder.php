@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
+use App\Models\Vendor;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             ApplicationSeeder::class,
             ProductTypeSeeder::class,
+            VendorSeeder::class,
+            ProductSeederElectronics::class,
         ]);
     }
 }

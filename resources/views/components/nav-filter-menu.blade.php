@@ -1,4 +1,3 @@
-{{-- filepath: d:\XAMPP\htdocs\production-project\ecommerce\resources\views\components\nav-filter-menu.blade.php --}}
 @props(['vendor'])
 
 <div class="w-1/6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 m-4 flex flex-col items-center"
